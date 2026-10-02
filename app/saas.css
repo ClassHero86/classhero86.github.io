@@ -109,3 +109,10 @@ body.narrow .chAcctPromo{display:inline;flex:0 0 auto;font-size:10px;font-weight
 .chOkTxt{color:var(--chOk)}
 /* 桌面：帳戶掣企喺頂欄右上角 */
 body:not(.narrow) header .chAcct{align-self:flex-start;margin-left:auto}
+/* 語言切換（登入頁／帳戶頁／帳戶選單）：中文｜English */
+.chLangSw{display:flex;align-items:center;gap:2px;font-size:12px;color:var(--chDim);margin:-8px 0 4px;min-height:22px}
+#chMenu .chLangSw{margin:0 0 6px;justify-content:flex-end}
+.chLangSw button{font:inherit;font-size:12px;font-weight:700;background:none;border:none;padding:2px 4px;color:var(--chDim);cursor:pointer;text-decoration:underline}
+.chLangSw button.on{color:var(--chInk);font-weight:900;text-decoration:none;cursor:default}
+/* 英文：拉丁字先用西文字型（Noto Sans TC 嘅 ’ “ ” 係全形，英文句會好闊） */
+html[lang="en"] #chLoad,html[lang="en"] #chOv,html[lang="en"] #chMenu{font-family:system-ui,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans TC','Microsoft JhengHei',sans-serif}
