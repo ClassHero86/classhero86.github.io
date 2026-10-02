@@ -96,6 +96,8 @@ body.rbTH .chAcctMini,body.rbTAH .chAcctMini{display:block}
 .chPromoChip{white-space:nowrap;font-size:12px!important;background:linear-gradient(#ffd27a,#ff9f45)!important}
 .chPromoChip[hidden]{display:none!important}
 body.narrow .chPromoChip{display:none!important}
+.chAcctPromo{display:none}
+body.narrow .chAcctPromo{display:inline;flex:0 0 auto;font-size:10px;font-weight:900;color:#c2410c;margin-right:1px}
 /* 登入：分頁、保持登入、後備連結 */
 .chTabs{display:flex;gap:6px;margin:8px 0 2px;background:#fff1d6;border:2px solid var(--chLine);border-radius:14px;padding:4px}
 .chTab{flex:1;font:inherit;font-weight:900;font-size:15px;padding:8px 6px;border:none;border-radius:10px;background:transparent;color:var(--chDim);cursor:pointer}
