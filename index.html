@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="zh-Hant-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="KZR00obtBV-WNjhyoCqNRp5_nwhWB9tFUzpBE7poOUo" />
+<title>班級英雄 ClassHero — 全班搶住舉手</title>
+<meta name="description" content="班級英雄 ClassHero：香港老師嘅課室遊戲化平台。座位表派分、BOSS 戰、扭蛋、世界地圖。14 日免費試用，唔使信用卡。">
+<link rel="canonical" href="https://classhero86.github.io/">
+<meta property="og:title" content="班級英雄 ClassHero — 全班搶住舉手">
+<meta property="og:description" content="香港老師嘅課室遊戲化平台。14 日免費試用，唔使信用卡。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://classhero86.github.io/">
+<meta property="og:image" content="https://classhero86.github.io/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="zh_HK">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="keywords" content="課堂遊戲化,班級經營,香港老師,加分系統,學生獎勵,BOSS 戰,小學,中學,班級英雄,ClassHero">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "班級英雄 ClassHero",
+  "alternateName": "ClassHero",
+  "description": "香港老師嘅課室遊戲化平台：座位表派分、加分系統、BOSS 戰、扭蛋、世界地圖，提升全班課堂參與度。",
+  "url": "https://classhero86.github.io/",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Web",
+  "inLanguage": "zh-Hant-HK",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "個人月費",
+      "price": "30",
+      "priceCurrency": "HKD",
+      "url": "https://classhero86.github.io/"
+    },
+    {
+      "@type": "Offer",
+      "name": "個人年費",
+      "price": "248",
+      "priceCurrency": "HKD",
+      "url": "https://classhero86.github.io/"
+    },
+    {
+      "@type": "Offer",
+      "name": "終身會員（創始價）",
+      "price": "988",
+      "priceCurrency": "HKD",
+      "url": "https://classhero86.github.io/app/?plan=lifetime"
+    }
+  ],
+  "author": {
+    "@type": "Organization",
+    "name": "KTH"
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&display=swap">
+<style>
+:root{--bg:#f6ead2;--grid:#ead9b8;--card:#fff;--ink:#3b2a1a;--ink2:#6b5440;--yel:#ffcf3d;--red:#ff6b5b;--grn:#3cc47c;--blu:#5bb4ff;--pink:#ff8fc8}
+*{box-sizing:border-box}
+html{color-scheme:light}
+body{margin:0;background:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px;color:var(--ink);font:500 16px/1.6 'Noto Sans TC',system-ui,sans-serif}
+a{color:var(--ink)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+h1,h2,h3{font-weight:900;margin:0}
+.pop{text-shadow:3px 3px 0 var(--yel)}
+.box{background:var(--card);border:3px solid var(--ink);border-radius:18px;box-shadow:5px 5px 0 var(--ink)}
+.btn{display:inline-block;background:var(--red);color:#fff;font-weight:900;font-size:18px;text-decoration:none;padding:14px 24px;border:3px solid var(--ink);border-radius:999px;box-shadow:4px 4px 0 var(--ink);transition:transform .1s,box-shadow .1s}
+.btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.btn small{display:block;font-size:12px;font-weight:700;opacity:.9}
+nav{display:flex;justify-content:space-between;align-items:center;padding:14px 0}
+nav b{font-size:20px;font-weight:900}
+nav a.mini{font-weight:900;text-decoration:none;background:var(--yel);border:3px solid var(--ink);border-radius:999px;padding:6px 14px;box-shadow:3px 3px 0 var(--ink);font-size:14px}
+.hero{display:grid;grid-template-columns:1fr 1.25fr;gap:36px;align-items:center;padding:28px 0 48px}
+.hero h1{font-size:clamp(40px,7vw,68px);line-height:1.12}
+.hero p{font-size:18px;color:var(--ink2);margin:16px 0 24px}
+.stage{position:relative;padding:10px;transform:rotate(1.2deg)}
+.stage img{display:block;width:100%;height:auto;border-radius:10px;aspect-ratio:900/359;object-fit:cover}
+.stage .sticker{position:absolute;font-weight:900;border:3px solid var(--ink);border-radius:12px;padding:4px 10px;box-shadow:3px 3px 0 var(--ink);font-size:15px;animation:bob 1.6s ease-in-out infinite}
+.s1{top:-16px;left:14%;background:var(--yel)}
+.s2{bottom:-14px;right:10%;background:var(--grn);color:#fff;animation-delay:.5s!important}
+.s3{top:36%;right:-10px;background:var(--pink);animation-delay:.9s!important}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-3deg)}}
+section{padding:40px 0}
+.sec-h{text-align:center;font-size:clamp(28px,5vw,40px);margin-bottom:8px}
+.sec-sub{text-align:center;color:var(--ink2);margin:0 0 28px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.tease{position:relative;overflow:hidden;cursor:pointer;padding:0;display:flex;flex-direction:column;text-align:left;font:inherit;color:inherit}
+.tease .pic{position:relative;height:170px;overflow:hidden;border-bottom:3px solid var(--ink);width:100%}
+.tease .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:filter .4s}
+.tease .pic img.fog{filter:blur(9px) saturate(1.2);-webkit-mask-image:linear-gradient(90deg,transparent 0 var(--peek,42%),#000 calc(var(--peek,42%) + 12%));mask-image:linear-gradient(90deg,transparent 0 var(--peek,42%),#000 calc(var(--peek,42%) + 12%));transition:-webkit-mask-position .5s}
+.tease .pic::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 0 calc(var(--peek,42%) + 6%),rgba(246,234,210,.35) 70%)}
+.tease .lock{position:absolute;top:10px;right:10px;z-index:2;background:var(--ink);color:var(--yel);font-weight:900;font-size:12px;padding:3px 9px;border-radius:999px}
+.tease .q{position:absolute;bottom:10px;right:14px;z-index:2;font-size:44px;font-weight:900;color:#fff;text-shadow:3px 3px 0 var(--ink);transition:opacity .3s}
+.tease .txt{padding:12px 14px 14px}
+.tease h3{font-size:18px}
+.tease .hook{margin:2px 0 0;color:var(--ink2);font-size:14px}
+.tease.open{--peek:62%}
+.tease.open .q{opacity:0}
+.tease:hover .pic img.fog,.tease.open .pic img.fog{filter:blur(6px)}
+.tease:focus-visible{outline:3px solid var(--blu);outline-offset:3px}
+.tip{text-align:center;font-size:13px;color:var(--ink2);margin-top:14px}
+.quote{max-width:720px;margin:0 auto;padding:28px;position:relative;background:#fff8e6}
+.quote .tag{position:absolute;top:-14px;left:20px;background:var(--blu);color:#fff;font-weight:900;font-size:13px;border:3px solid var(--ink);border-radius:999px;padding:2px 12px}
+.quote blockquote{margin:0;font-size:20px;font-weight:700;line-height:1.5}
+.quote cite{display:block;margin-top:12px;font-style:normal;color:var(--ink2);font-size:14px}
+.ph{display:inline-block;background:#ffe3e0;color:#b33;border:2px dashed #b33;border-radius:6px;padding:0 6px;font-size:12px;font-weight:900;margin-left:6px;vertical-align:middle}
+.prices{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1120px;margin:0 auto}
+.plan.life{background:linear-gradient(180deg,#fff1c2,#fffaf0)}
+.badge.gold{background:#c99a2e}
+.plan{padding:22px;display:flex;flex-direction:column;gap:8px}
+.plan h3{font-size:18px}
+.plan .amt{font-size:36px;font-weight:900;line-height:1.1}
+.plan .amt small{font-size:15px;color:var(--ink2);font-weight:700}
+.plan p{margin:0;color:var(--ink2);font-size:14px}
+.plan.hot{background:#fff6d6;transform:translateY(-6px)}
+.badge{align-self:flex-start;background:var(--grn);color:#fff;font-weight:900;font-size:12px;border:2px solid var(--ink);border-radius:999px;padding:1px 10px}
+.final{text-align:center;padding:48px 16px}
+.final h2{font-size:clamp(28px,5vw,40px);margin-bottom:18px}
+footer{border-top:3px solid var(--ink);margin-top:30px;padding:22px 0 34px;font-size:14px;color:var(--ink2)}
+footer p{margin:0 0 8px}
+footer a{color:inherit}
+@media (max-width:1000px){.prices{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.plan.hot{transform:none}}
+@media (max-width:560px){.prices{grid-template-columns:1fr}}
+@media (max-width:760px){.hero{grid-template-columns:1fr;gap:28px;padding-top:10px;text-align:center}.stage{transform:none}}
+@media (max-width:480px){.grid{gap:14px}.tease .pic{height:120px}.tease .txt{padding:10px}.tease h3{font-size:16px}.tease .hook{font-size:13px}.tease .q{font-size:32px}.s3{display:none}.btn{font-size:16px;padding:12px 18px}}
+@media (prefers-reduced-motion:reduce){.stage .sticker{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><b>⚔️ 班級英雄</b><a class="mini" href="./app/">免費試用</a></nav>
+
+<header class="hero">
+  <div>
+    <h1 class="pop">全班<br>搶住舉手</h1>
+    <p>撳一下座位，個個學生嘅角色即刻升級。</p>
+    <a class="btn" href="./app/">免費試用 14 日<small>唔使信用卡</small></a>
+  </div>
+  <div class="stage box">
+    <img src="./img/play/class.webp" alt="班級英雄遊戲畫面：全班學生角色卡同派分工具列" width="900" height="359" fetchpriority="high">
+    <span class="sticker s1">+5 ⭐</span>
+    <span class="sticker s2">Lv.UP!</span>
+    <span class="sticker s3">🔥 COMBO</span>
+  </div>
+</header>
+</div>
+
+<section>
+<div class="wrap">
+  <h2 class="sec-h pop">入面仲有咩？</h2>
+  <p class="sec-sub">淨係畀你望一眼。</p>
+  <div class="grid">
+    <button class="tease box" type="button"><div class="pic"><img src="./img/play/boss.webp" alt="" loading="lazy"><img class="fog" src="./img/play/boss.webp" alt="" loading="lazy"><span class="lock">🔒 登入解鎖</span><span class="q">?</span></div><div class="txt"><h3>BOSS 戰</h3><p class="hook">佢仲剩幾多血？</p></div></button>
+    <button class="tease box" type="button"><div class="pic"><img src="./img/play/gacha.webp" alt="" loading="lazy"><img class="fog" src="./img/play/gacha.webp" alt="" loading="lazy"><span class="lock">🔒 登入解鎖</span><span class="q">?</span></div><div class="txt"><h3>寵物扭蛋</h3><p class="hook">最後一粒蛋係乜？</p></div></button>
+    <button class="tease box" type="button"><div class="pic"><img src="./img/play/claw.webp" alt="" loading="lazy"><img class="fog" src="./img/play/claw.webp" alt="" loading="lazy"><span class="lock">🔒 登入解鎖</span><span class="q">?</span></div><div class="txt"><h3>夾公仔機</h3><p class="hook">今次夾唔夾到？</p></div></button>
+    <button class="tease box" type="button"><div class="pic"><img src="./img/play/world.webp" alt="" loading="lazy"><img class="fog" src="./img/play/world.webp" alt="" loading="lazy"><span class="lock">🔒 登入解鎖</span><span class="q">?</span></div><div class="txt"><h3>世界地圖</h3><p class="hook">城堡後面有咩？</p></div></button>
+    <button class="tease box" type="button"><div class="pic"><img src="./img/play/camp.webp" alt="" loading="lazy" style="object-position:50% 20%"><img class="fog" src="./img/play/camp.webp" alt="" loading="lazy" style="object-position:50% 20%"><span class="lock">🔒 登入解鎖</span><span class="q">?</span></div><div class="txt"><h3>營火結算</h3><p class="hook">今日 MVP 係邊個？</p></div></button>
+    <button class="tease box" type="button"><div class="pic"><img src="./img/play/badge.webp" alt="" loading="lazy"><img class="fog" src="./img/play/badge.webp" alt="" loading="lazy"><span class="lock">🔒 登入解鎖</span><span class="q">?</span></div><div class="txt"><h3>徽章時刻</h3><p class="hook">一次過彈三個出嚟</p></div></button>
+    <button class="tease box" type="button"><div class="pic"><img src="./img/play/pusher.webp" alt="" loading="lazy"><img class="fog" src="./img/play/pusher.webp" alt="" loading="lazy"><span class="lock">🔒 登入解鎖</span><span class="q">?</span></div><div class="txt"><h3>推金幣機</h3><p class="hook">就差少少就跌落嚟</p></div></button>
+    <button class="tease box" type="button"><div class="pic"><img src="./img/play/gear.webp" alt="" loading="lazy"><img class="fog" src="./img/play/gear.webp" alt="" loading="lazy"><span class="lock">🔒 登入解鎖</span><span class="q">?</span></div><div class="txt"><h3>裝備寶庫</h3><p class="hook">翅膀要儲幾耐？</p></div></button>
+  </div>
+  <p class="tip">撳一下張卡，揭開多少少。其餘？試咗先知。</p>
+</div>
+</section>
+
+<!-- 有真實老師評價（經同意）先打開
+<section>
+<div class="wrap">
+  <div class="quote box">
+    <span class="tag">老師用一個禮拜之後…</span>
+    <blockquote>「（老師真實評價，待填）」</blockquote>
+    <cite>— （老師稱呼／任教年級，待填）</cite>
+  </div>
+</div>
+</section>
+-->
+
+<section>
+<div class="wrap">
+  <h2 class="sec-h pop">價錢</h2>
+  <p class="sec-sub">先免費玩 14 日，唔使信用卡。<br><b>🔥 試用期內愈早升級愈平（最低 5 折）・🐣 每年 8–9 月早鳥 8 折</b></p>
+  <div class="prices">
+    <div class="plan box" role="link" tabindex="0" onclick="location.href='./app/?plan=teacher'" onkeypress="if(event.key==='Enter')location.href='./app/?plan=teacher'" style="cursor:pointer"><h3>個人月費</h3><div class="amt">HK$30 <small>／月</small></div><p>隨時取消。</p><a class="btn" href="./app/?plan=teacher" onclick="event.stopPropagation()">開始免費試用</a></div>
+    <div class="plan box hot" role="link" tabindex="0" onclick="location.href='./app/?plan=teacher_yearly'" onkeypress="if(event.key==='Enter')location.href='./app/?plan=teacher_yearly'" style="cursor:pointer"><span class="badge">慳 3 成</span><h3>個人年費</h3><div class="amt">HK$248 <small>／年</small></div><p>一年唔使再諗。</p><a class="btn" href="./app/?plan=teacher_yearly" onclick="event.stopPropagation()">立即訂閱</a></div>
+    <div class="plan box" role="link" tabindex="0" onclick="location.href='./app/?plan=school'" onkeypress="if(event.key==='Enter')location.href='./app/?plan=school'" style="cursor:pointer"><h3>學校方案</h3><div class="amt">HK$3,880 <small>／年</small></div><p>包 40 位老師，額外每位 HK$88。</p><a class="btn" href="./app/?plan=school" onclick="event.stopPropagation()">學校方案</a></div>
+    <div class="plan box life" role="link" tabindex="0" onclick="location.href='./app/?plan=lifetime'" onkeypress="if(event.key==='Enter')location.href='./app/?plan=lifetime'" style="cursor:pointer"><span class="badge gold">限首 100 位</span><h3>👑 終身會員（創始價）</h3><div class="amt">HK$988 <small>／一次過</small></div><p>一次過付款，永久使用個人方案全部功能。</p><a class="btn" href="./app/?plan=lifetime" onclick="event.stopPropagation()">成為終身會員</a></div>
+  </div>
+</div>
+</section>
+
+<div class="final">
+  <h2 class="pop">下堂就試？</h2>
+  <a class="btn" href="./app/">免費試用 14 日<small>唔使信用卡</small></a>
+</div>
+
+<div class="wrap">
+<footer>
+  <p><a href="./">Home</a> · <a href="./app/">App</a> · <a href="./faq.html">FAQ</a> · <a href="./terms.html">Terms</a> · <a href="./refunds.html">Refunds</a> · <a href="./privacy.html">Privacy</a> · <a href="./contact.html">Contact</a></p>
+  <p>班級英雄（由香港獨立開發者 KTH Studio 營運） · ClassHero is operated by KTH Studio, an independent software developer based in Hong Kong. Contact: <a href="mailto:riceisgd@hotmail.com">riceisgd@hotmail.com</a></p>
+  <p>© 2026 ClassHero. All rights reserved.</p>
+</footer>
+</div>
+<script>
+document.querySelectorAll('.tease').forEach(function(c){c.addEventListener('click',function(){c.classList.toggle('open')})});
+</script>
+</body>
+</html>
