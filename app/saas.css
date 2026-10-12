@@ -20,7 +20,8 @@
 .chBtn.main{background:linear-gradient(var(--chMain2),var(--chMain));color:#3a1500}
 .chBtn.ghost{background:#fff8ea;box-shadow:none;border-width:2px;font-weight:700}
 .chBtn:disabled{opacity:.5}
-.chX{position:absolute;top:10px;right:12px;background:none;border:none;font-size:20px;color:var(--chDim);cursor:pointer}
+/* 關閉掣：唔可以叫 .chX——app.html 冇 doctype（quirks mode，class 唔分大細楷），會中 app 嘅 .chx{position:relative;margin:0 auto} 走咗去左上角 */
+.chClose{position:absolute;top:10px;right:12px;z-index:2;line-height:1;padding:4px;background:none;border:none;font-size:20px;color:var(--chDim);cursor:pointer}
 .chNote{min-height:18px;margin-top:10px;font-size:14px;font-weight:700;color:var(--chOk);text-align:center}
 .chNote.bad{color:var(--chBad)}
 .chRow{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:2px dashed #ecdcc0;font-size:15px;flex-wrap:wrap}
@@ -116,3 +117,18 @@ body:not(.narrow) header .chAcct{align-self:flex-start;margin-left:auto}
 .chLangSw button.on{color:var(--chInk);font-weight:900;text-decoration:none;cursor:default}
 /* 英文：拉丁字先用西文字型（Noto Sans TC 嘅 ’ “ ” 係全形，英文句會好闊） */
 html[lang="en"] #chLoad,html[lang="en"] #chOv,html[lang="en"] #chMenu{font-family:system-ui,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans TC','Microsoft JhengHei',sans-serif}
+/* 008 學校試用／邀請狀態 */
+.chList em.warn{color:#c25a00}.chList em.bad{color:var(--chBad)}
+.chList .chHint{display:block;font-size:12px;color:var(--chDim);margin-top:2px;font-weight:600;word-break:normal}
+.chTrialBox{margin:12px 0;padding:10px 12px;border:2px dashed #5aa9e6;border-radius:12px;background:#f3faff;text-align:center}
+.chTrialBox .small{margin:4px 0 8px;text-align:left;line-height:1.5}
+.chInfo{margin-top:10px;background:#eef8ff;border:2px solid #5aa9e6;border-radius:12px;padding:8px 10px;font-weight:700;color:#1d5a8a;font-size:14px;line-height:1.45}
+/* 網站 footer（營運者＋聯絡）：登入頁、帳戶頁、app ⚙️ 設定底部；細字、唔搶位 */
+.chSiteFoot{margin:14px 0 0;padding-top:8px;white-space:normal;overflow-wrap:anywhere;border-top:1px dashed #e2cfae;text-align:center;font-size:11px;line-height:1.5;color:var(--chDim)}
+.chSiteFoot p{margin:2px 0}
+.chSiteFoot a{color:#c25a00;font-weight:700;text-decoration:none;white-space:nowrap}
+.chSiteFoot a:hover{text-decoration:underline}
+.chSiteFoot.chInApp{margin:16px 0 26px;border-top:1px solid rgba(160,160,160,.35);color:inherit;opacity:.72;font-size:11px;font-weight:400}
+.chSiteFoot.chInApp a{color:inherit;font-weight:700;text-decoration:underline}
+.chPastDue{background:#fff7e6;border-color:#f0b54a;color:#7a4a00}
+.chNoWrap,.chPromo b[data-cd]{white-space:nowrap}

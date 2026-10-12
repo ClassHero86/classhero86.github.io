@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /app/
 
-Sitemap: https://classhero86.github.io/sitemap.xml
+Sitemap: https://getclasshero.com/sitemap.xml

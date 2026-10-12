@@ -1,98 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://classhero86.github.io/</loc>
-    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://classhero86.github.io/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://classhero86.github.io/en/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://classhero86.github.io/"/>
+    <loc>https://getclasshero.com/</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://getclasshero.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getclasshero.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getclasshero.com/"/>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://classhero86.github.io/faq.html</loc>
-    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://classhero86.github.io/faq.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://classhero86.github.io/en/faq.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://classhero86.github.io/faq.html"/>
+    <loc>https://getclasshero.com/faq.html</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://getclasshero.com/faq.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getclasshero.com/en/faq.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getclasshero.com/faq.html"/>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://classhero86.github.io/terms.html</loc>
-    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://classhero86.github.io/terms.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://classhero86.github.io/en/terms.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://classhero86.github.io/terms.html"/>
+    <loc>https://getclasshero.com/terms.html</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://getclasshero.com/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getclasshero.com/en/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getclasshero.com/terms.html"/>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://classhero86.github.io/privacy.html</loc>
-    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://classhero86.github.io/privacy.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://classhero86.github.io/en/privacy.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://classhero86.github.io/privacy.html"/>
+    <loc>https://getclasshero.com/privacy.html</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://getclasshero.com/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getclasshero.com/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getclasshero.com/privacy.html"/>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://classhero86.github.io/refunds.html</loc>
-    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://classhero86.github.io/refunds.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://classhero86.github.io/en/refunds.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://classhero86.github.io/refunds.html"/>
+    <loc>https://getclasshero.com/refunds.html</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://getclasshero.com/refunds.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getclasshero.com/en/refunds.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getclasshero.com/refunds.html"/>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://classhero86.github.io/contact.html</loc>
-    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://classhero86.github.io/contact.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://classhero86.github.io/en/contact.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://classhero86.github.io/contact.html"/>
+    <loc>https://getclasshero.com/contact.html</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://getclasshero.com/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getclasshero.com/en/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getclasshero.com/contact.html"/>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://classhero86.github.io/en/</loc>
-    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://classhero86.github.io/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://classhero86.github.io/en/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://classhero86.github.io/"/>
+    <loc>https://getclasshero.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://getclasshero.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getclasshero.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getclasshero.com/"/>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://classhero86.github.io/en/faq.html</loc>
-    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://classhero86.github.io/faq.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://classhero86.github.io/en/faq.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://classhero86.github.io/faq.html"/>
+    <loc>https://getclasshero.com/en/faq.html</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://getclasshero.com/faq.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getclasshero.com/en/faq.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getclasshero.com/faq.html"/>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://classhero86.github.io/en/terms.html</loc>
-    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://classhero86.github.io/terms.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://classhero86.github.io/en/terms.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://classhero86.github.io/terms.html"/>
+    <loc>https://getclasshero.com/en/terms.html</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://getclasshero.com/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getclasshero.com/en/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getclasshero.com/terms.html"/>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://classhero86.github.io/en/privacy.html</loc>
-    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://classhero86.github.io/privacy.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://classhero86.github.io/en/privacy.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://classhero86.github.io/privacy.html"/>
+    <loc>https://getclasshero.com/en/privacy.html</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://getclasshero.com/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getclasshero.com/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getclasshero.com/privacy.html"/>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://classhero86.github.io/en/refunds.html</loc>
-    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://classhero86.github.io/refunds.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://classhero86.github.io/en/refunds.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://classhero86.github.io/refunds.html"/>
+    <loc>https://getclasshero.com/en/refunds.html</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://getclasshero.com/refunds.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getclasshero.com/en/refunds.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getclasshero.com/refunds.html"/>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://classhero86.github.io/en/contact.html</loc>
-    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://classhero86.github.io/contact.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://classhero86.github.io/en/contact.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://classhero86.github.io/contact.html"/>
+    <loc>https://getclasshero.com/en/contact.html</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://getclasshero.com/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getclasshero.com/en/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getclasshero.com/contact.html"/>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
