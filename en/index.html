@@ -89,11 +89,15 @@ h1,h2,h3{font-weight:900;margin:0}
 nav{display:flex;justify-content:space-between;align-items:center;padding:14px 0}
 nav b{font-size:20px;font-weight:900}
 nav a.mini{font-weight:900;text-decoration:none;background:var(--yel);border:3px solid var(--ink);border-radius:999px;padding:6px 14px;box-shadow:3px 3px 0 var(--ink);font-size:14px}
+.nav-actions{display:flex;align-items:center;gap:12px;white-space:nowrap}
+.nav-actions .login{font-weight:900;font-size:14px;text-decoration:none;background:#fff9;border:2px solid var(--ink);border-radius:999px;padding:6px 12px}
+.nav-actions .login:hover{background:#fff}
 .lang{margin-left:auto;margin-right:12px;padding-left:8px;font-size:14px;font-weight:700;color:var(--ink2);white-space:nowrap}
 .lang b{font-size:14px;color:var(--ink)}
 .lang a{color:var(--ink2)}
 nav b,nav a.mini{white-space:nowrap}
-@media (max-width:380px){.lang{margin-right:8px;font-size:13px}.lang b{font-size:13px}nav b{font-size:17px}nav a.mini{padding:5px 10px;font-size:13px}}
+@media (max-width:520px){nav{flex-wrap:wrap;row-gap:6px}.lang{margin-right:0}.nav-actions{width:100%;justify-content:flex-end;margin-left:0}}
+@media (max-width:380px){.lang{font-size:13px}.lang b{font-size:13px}nav b{font-size:17px}nav a.mini{padding:5px 10px;font-size:13px}}
 .hero{display:grid;grid-template-columns:1fr 1.25fr;gap:36px;align-items:center;padding:28px 0 48px}
 .hero h1{font-size:clamp(40px,7vw,68px);line-height:1.12}
 .hero p{font-size:18px;color:var(--ink2);margin:16px 0 24px}
@@ -148,7 +152,7 @@ footer a{color:inherit}
 </head>
 <body>
 <div class="wrap">
-<nav><b>⚔️ ClassHero</b><span class="lang"><a href="../" hreflang="zh-Hant-HK" lang="zh-Hant-HK">中文</a>｜<b aria-current="page">English</b></span><a class="mini" href="../app/?lang=en">Free trial</a></nav>
+<nav><b>⚔️ ClassHero</b><span class="lang"><a href="../" hreflang="zh-Hant-HK" lang="zh-Hant-HK">中文</a>｜<b aria-current="page">English</b></span><div class="nav-actions"><a class="login" href="../app/?lang=en">Log in</a><a class="mini" href="../app/?lang=en">Free trial</a></div></nav>
 
 <header class="hero">
   <div>
