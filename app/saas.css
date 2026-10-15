@@ -86,6 +86,13 @@ body.narrow .chAcct .chEm{font-size:11px;min-width:0}
  border:2px solid var(--chLine);border-top:none;border-radius:0 0 8px 8px;background:#fff;cursor:pointer}
 body.rbTH .chAcctMini,body.rbTAH .chAcctMini{display:block}
 .chAcctMini.out{background:#ffc23d}
+/* 登入後頂欄直接切語言；收埋頂欄時保留細掣。 */
+.chLangTop{white-space:nowrap;flex:0 0 auto;font-size:13px!important;font-weight:900!important;min-width:65px}
+body.narrow header .chLangTop{min-width:51px;height:32px;padding:2px 5px!important;font-size:12px!important}
+.chLangMini{display:none;position:fixed;top:0;right:40px;z-index:62;height:22px;padding:0 6px;
+ font:900 11px/18px system-ui,sans-serif;color:var(--chInk);border:2px solid var(--chLine);border-top:none;
+ border-radius:0 0 8px 8px;background:#fff;cursor:pointer}
+body.rbTH .chLangMini,body.rbTAH .chLangMini{display:block}
 /* 早買優惠 */
 .chPromo{margin:10px 0 2px;padding:8px 10px;border-radius:12px;font-size:14px;font-weight:700;line-height:1.45;text-align:center}
 .chPromo.hot{background:#fff0e0;border:2px solid #ff8a3d;color:#a33b00}
