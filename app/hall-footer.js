@@ -29,8 +29,8 @@
     });
     const operator = document.createElement('p');
     operator.append(en
-      ? 'ClassHero is operated by KTH Studio, an independent software developer based in Hong Kong. Contact: '
-      : '班級英雄 ClassHero 由香港獨立軟件開發者 KTH Studio 營運。聯絡：');
+      ? 'ClassHero is operated by 86 Studio, an independent software developer based in Hong Kong. Contact: '
+      : '班級英雄 ClassHero 由香港獨立軟件開發者 86 Studio 營運。聯絡：');
     const email = document.createElement('a');
     email.href = 'mailto:riceisgd@hotmail.com';
     email.textContent = 'riceisgd@hotmail.com';
