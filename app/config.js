@@ -5,7 +5,7 @@ window.CH_CONFIG = {
   SUPABASE_ANON_KEY: 'sb_publishable_xkegoxxNAqF8WTdAimTLLw_V2LN-ssq',                  // Supabase → Project Settings → API → anon public
   STRIPE_PRICE_TEACHER_MONTHLY: '',       // 例：price_1Q...（已唔使：create-checkout 由代碼定價＋lookup_key 自動喺 Stripe 建立；月費 HK$30、年費 HK$248）
   STRIPE_PRICE_SCHOOL_SEAT_YEARLY: '',    // 例：price_1Q...（HK$3,880／年，40 位老師）
-  TRIAL_DAYS: 14,
+  TRIAL_DAYS: 30,
   LIFETIME_PRICE_HKD: 988,                // 終身會員顯示價（Stripe price 讀到就以 Stripe 為準）
   DEV_FAKE_AUTH: false                    // true = 本機假帳戶（測試登入／試用／唯讀／學校頁，唔使 Supabase）
 };
