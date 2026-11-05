@@ -3,6 +3,42 @@
   'use strict';
   let installed = false, panel, trigger, step = 0, active = false;
   const key = () => 'ch:first-lesson-guide:v1:' + (window.CH && window.CH.profile && window.CH.profile.user_id ? 'account:' + window.CH.profile.user_id : 'device');
+  let journey = false, journeyKey = '', initialRooms = null, roomScope = '';
+  const knownClassScopes = new Set();
+  const historyKey = () => key() + ':has-class';
+  const demo = r => r && (r.demo === true || r.isDemo === true);
+  function eligible() {
+    const scope = key();
+    if (roomScope !== scope) { roomScope = scope; initialRooms = null; }
+    if (journey && journeyKey !== scope) journey = false;
+    let hadClass = knownClassScopes.has(scope);
+    try { hadClass = hadClass || localStorage.getItem(historyKey()) === '1'; } catch (_) {}
+    if (hadClass) knownClassScopes.add(scope);
+    const db = typeof DB !== 'undefined' && DB;
+    if (!db || !Array.isArray(db.rooms)) return false;
+    const rooms = db.rooms.filter(r => r && !demo(r));
+    const ids = rooms.map(r => r.id).filter(Boolean);
+    const added = initialRooms && ids.some(id => !initialRooms.has(id));
+    if (!initialRooms) initialRooms = new Set(ids);
+    const defaults = /^(我的班級|新班別|班別|my class|new class|class)?$/i;
+    const used = r => !defaults.test(String(r.name || '').trim()) ||
+      ['students', 'removed', 'qMy', 'quests', 'hist'].some(p => Array.isArray(r[p]) && r[p].length > 0) ||
+      !!(r.lastAct || r.prevAct || r.lastWin);
+    if (added || rooms.length > 1 || rooms.some(used) ||
+        (Array.isArray(db.arch) && db.arch.some(r => r && !demo(r)))) {
+      hadClass = true;
+      knownClassScopes.add(scope);
+      try { localStorage.setItem(historyKey(), '1'); } catch (_) {}
+    }
+    return !hadClass;
+  }
+  function syncAvailability() {
+    const allow = eligible() || (journey && journeyKey === key());
+    if (!allow) active = false;
+    if (trigger) trigger.hidden = !allow || active;
+    if (panel) panel.hidden = !allow || !active;
+    return allow;
+  }
   const en = () => document.documentElement.classList.contains('i18n-en');
   const t = (zh, english) => en() ? english : zh;
   const steps = [
@@ -35,11 +71,14 @@
       seats();
       if (typeof seatEdit !== 'undefined' && seatEdit) { const b = document.getElementById('seDone') || document.getElementById('seEdit'); if (b) b.click(); }
       step = 0;
+      journey = false;
     }
-    if (restoreFocus !== false) trigger.focus();
+    syncAvailability();
+    if (restoreFocus !== false && !trigger.hidden) trigger.focus();
   }
   function draw() {
     if (!panel) return;
+    if (!syncAvailability()) return;
     trigger.textContent = t('？教學', '? Help');
     trigger.setAttribute('aria-label', t('開啟第一堂課指引', 'Open first lesson guide'));
     if (!active) return;
@@ -63,6 +102,8 @@
   function open() {
     if (!panel) mount();
     if (!panel) return;
+    if (!syncAvailability()) return false;
+    journey = true; journeyKey = key();
     remember(); active = true; panel.hidden = false; trigger.hidden = true; draw();
     panel.querySelector('[data-lg="action"]').focus();
   }
@@ -80,11 +121,11 @@
     };
     positionHelp();
     if (dock && typeof ResizeObserver !== 'undefined') new ResizeObserver(positionHelp).observe(dock);
-    trigger = document.createElement('button'); trigger.id = 'chLessonHelp'; trigger.type = 'button'; trigger.onclick = open;
+    trigger = document.createElement('button'); trigger.id = 'chLessonHelp'; trigger.type = 'button'; trigger.hidden = true; trigger.onclick = open;
     panel = document.createElement('aside'); panel.id = 'chLessonGuide'; panel.hidden = true; panel.setAttribute('aria-labelledby', 'chLgTitle'); panel.setAttribute('aria-label', t('第一堂課指引', 'First lesson guide'));
     panel.addEventListener('keydown', e => { if (e.key === 'Escape') { e.stopPropagation(); close(false); } });
     document.body.append(trigger, panel); draw();
-    if (!seen()) {
+    if (syncAvailability() && !seen()) {
       remember();
       // Invitation only: never open a modal or change classroom state on startup.
       trigger.textContent = t('第一堂課？開始指引', 'First lesson? Start guide');
@@ -94,6 +135,15 @@
   function install() {
     if (installed) return true;
     installed = true;
+    // Account state may change on a class switch, import, creation or deletion.
+    for (const name of ['save', 'render']) {
+      const original = window[name];
+      if (typeof original === 'function') window[name] = function () {
+        const result = original.apply(this, arguments);
+        syncAvailability();
+        return result;
+      };
+    }
     const post = window.CH_POST;
     window.CH_POST = function () { const result = typeof post === 'function' ? post.apply(this, arguments) : undefined; mount(); return result; };
     return true;
