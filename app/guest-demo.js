@@ -42,7 +42,9 @@
         S.demo = true; S.gender = 'mix'; S.grid = { c: 4, r: 3 }; S.seatOnePage = true; S.flip = true;
         const names = en ? ['Alex','Mia','Leo','Zoe','Kai','Emma','Ryan','Lily','Noah','Ivy','Ben','Amy'] : ['子朗','心晴','樂言','雅琳','宇軒','詠恩','俊熙','芷晴','承希','思穎','柏言','曉彤'];
         const exp = Array.from({ length: LV_T2 - 1 }, (_, i) => need(i + 1)).reduce((a, b) => a + b, 0);
-        S.students = names.map((name, i) => Object.assign(NEWSTU(name), { g: i % 2 ? 'f' : 'm', br: BR[Math.floor(i / 2) % BR.length].id, exp, coins: 100, seat: [i % 4, Math.floor(i / 4)] }));
+        // The sandbox starts after today's first participation bonus. Real classes
+        // retain their normal bonus rules; the first demo click stays predictable.
+        S.students = names.map((name, i) => Object.assign(NEWSTU(name), { g: i % 2 ? 'f' : 'm', br: BR[Math.floor(i / 2) % BR.length].id, exp, coins: 100, day: TD(), seat: [i % 4, Math.floor(i / 4)] }));
         document.getElementById('DBSTATE').textContent = JSON.stringify(DB);
         return originalBoot.apply(this, arguments);
       };
@@ -53,7 +55,7 @@
       bar.innerHTML = '<strong></strong><span id="chGuestHint" role="status"></span><nav aria-label="Demo activities"><button data-demo="seat"></button><button data-demo="boss"></button><button data-demo="quiet"></button><button data-demo="save" class="primary"></button></nav>';
       bar.querySelector('strong').textContent = t('免登入示範 · 放心試玩', 'Try it freely · No sign-in');
       const hint = bar.querySelector('#chGuestHint');
-      hint.textContent = t('點一位學生加分。資料只留在本頁，重新整理即可重玩。', 'Click a student to award points. This demo resets when you reload.');
+      hint.textContent = t('點學生試加 5 分；示範不套用首次加倍。資料只留在本頁。', 'Click a student for +5; the demo skips the first-award multiplier. Data stays on this page.');
       const labels = { seat: t('① 試加分', '① Award points'), boss: t('② 挑戰 BOSS', '② Battle a BOSS'), quiet: t('③ 靜音看世界', '③ Quiet World'), save: t('建立並儲存自己的班級 → 登入', 'Create & save my class → Sign in') };
       bar.querySelectorAll('button').forEach(button => {
         const action = button.dataset.demo; button.textContent = labels[action];

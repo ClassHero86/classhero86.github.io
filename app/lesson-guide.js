@@ -42,18 +42,73 @@
   const en = () => document.documentElement.classList.contains('i18n-en');
   const t = (zh, english) => en() ? english : zh;
   const steps = [
-    ['加入學生', 'Add students', '在「學生」貼上名單並儲存，即可開始。其他資料可以稍後補上。', 'Paste your class list in Students and save. You can fill in other details later.', '加入學生名單', 'Add your class list', '下一步：看座位', 'Next: see seats'],
+    ['建立自己的班級', 'Create your class', '填寫班名，再貼上名單；還沒有名單，也可以輸入人數，用座號先開始。', 'Name your class, then paste a list. No list yet? Enter the class size and start with numbered students.', '快速建立班級', 'Quick class setup', '下一步：看座位', 'Next: see seats'],
     ['全班一眼看清', 'See the whole class', '先用預設座位上課即可。需要時，用「全班一頁」或「座位大小」調整顯示；不用先完成排位。', 'Start with the default seats. Use Fit class or Seat size if needed; arranging seats can wait.', '查看全班座位', 'See the class', '下一步：試加分', 'Next: award points'],
-    ['選規則，點學生加分', 'Choose an award, then a student', '從底部選擇加分規則，再點學生。按錯可按「撤銷」。第一堂先用這個就夠了，其他玩法稍後再探索。', 'Choose an award in the bottom bar, then click a student. Use Undo if needed. That is enough for your first lesson; explore other games later.', '查看加分規則', 'See awards', '完成，開始上課', 'Done; start teaching']
+    ['選規則，點學生加分', 'Choose an award, then a student', '從底部選擇加分規則，再點學生。若規則顯示「首次×2」，每日第一次 +5 會加成 +10，其後為 +5。按錯可按「撤銷」。其他玩法稍後再探索。', 'Choose an award below, then click a student. If First time ×2 is shown, the first +5 award each day becomes +10; later awards give +5. Use Undo if needed. Other games can wait.', '查看加分規則', 'See awards', '完成，開始上課', 'Done; start teaching']
   ];
   function remember() { try { localStorage.setItem(key(), 'seen'); } catch (_) {} }
   function seen() { try { return !!localStorage.getItem(key()); } catch (_) { return false; } }
   function seats() { if (typeof setView === 'function') setView('seat'); }
+  function quickClass() {
+    // Only the untouched starter class is eligible. Never replace an existing
+    // class or copy the fictional guest roster into a signed-in account.
+    if (!eligible() || typeof S === 'undefined' || !S || demo(S) || (S.students || []).length) return false;
+    if (typeof modal !== 'function' || typeof parseNames !== 'function' || typeof addNames !== 'function' || typeof seatFit !== 'function' || typeof autoSeat !== 'function') return false;
+    const room = S, scope = key();
+    const encode = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    modal('<div data-notr><h2>' + t('建立自己的班級', 'Create your class') + '</h2>' +
+      '<label for="chQuickName">' + t('班級名稱', 'Class name') + '</label><input id="chQuickName" maxlength="30" value="' + encode(room.name || '') + '" placeholder="' + t('例如：三年甲班', 'e.g. Class 3A') + '">' +
+      '<div class="row" style="margin:12px 0"><button type="button" class="chip" id="chQuickList" aria-pressed="true">' + t('貼上名單', 'Paste a list') + '</button><button type="button" class="nb" id="chQuickNumbers" aria-pressed="false">' + t('先用座號', 'Use numbers') + '</button></div>' +
+      '<div id="chQuickListFields"><label for="chQuickNames">' + t('每行一位學生，可直接貼上 Excel 名單', 'One student per line; you can paste from Excel') + '</label><textarea id="chQuickNames" rows="6" placeholder="' + t('小明\n小欣\n小宇', 'Alex\nMia\nLeo') + '"></textarea></div>' +
+      '<div id="chQuickNumberFields" hidden><label for="chQuickCount">' + t('學生人數（1–60）', 'Number of students (1–60)') + '</label><input id="chQuickCount" type="number" min="1" max="60" step="1" value="30"><p>' + t('先建立 01、02、03…；之後可以換成姓名，保留分數與座位。', 'Start with 01, 02, 03… Replace these with names later, keeping points and seats.') + '</p></div>' +
+      '<p>' + t('可以使用暱稱或座號，不必輸入真名。同名學生請加上座號；重複姓名只加入一次。其他設定稍後再調整。', 'Nicknames or numbers are fine. Add a number to distinguish students with the same name; duplicates are added once. Other settings can wait.') + '</p><p id="chQuickError" role="alert" style="color:#c62828"></p>' +
+      '<div class="row"><button type="button" class="chip big2" id="chQuickSave">' + t('建立班級，查看座位', 'Create class & see seats') + '</button><button type="button" class="nb" id="chQuickCancel">' + t('稍後再建', 'Not now') + '</button></div></div>', () => {
+        const $ = id => document.getElementById(id);
+        let numbered = false, submitted = false;
+        const choose = value => {
+          numbered = value; $('chQuickListFields').hidden = value; $('chQuickNumberFields').hidden = !value;
+          $('chQuickList').setAttribute('aria-pressed', String(!value)); $('chQuickNumbers').setAttribute('aria-pressed', String(value));
+          $('chQuickError').textContent = ''; $(value ? 'chQuickCount' : 'chQuickNames').focus();
+        };
+        $('chQuickList').onclick = () => choose(false);
+        $('chQuickNumbers').onclick = () => choose(true);
+        $('chQuickCancel').onclick = () => closeM();
+        $('chQuickSave').onclick = () => {
+          if (submitted) return;
+          const fail = message => { $('chQuickError').textContent = message; };
+          if (scope !== key() || S !== room || !eligible() || (room.students || []).length) return fail(t('班級狀態已變更，請關閉此視窗後重新開始。', 'Your class changed. Close this window and start again.'));
+          if (window.CH && typeof window.CH.canWrite === 'function' && !window.CH.canWrite()) return fail(t('目前無法儲存班級，請先檢查帳戶狀態。', 'Your account cannot save a class right now. Please check its status.'));
+          const name = $('chQuickName').value.trim();
+          if (!name) return fail(t('請先填寫班級名稱。', 'Please enter a class name.'));
+          let list;
+          if (numbered) {
+            const count = Number($('chQuickCount').value);
+            if (!Number.isInteger(count) || count < 1 || count > 60) return fail(t('請輸入 1 至 60 的整數。', 'Enter a whole number from 1 to 60.'));
+            list = Array.from({length:count}, (_, i) => String(i + 1).padStart(2, '0'));
+          } else {
+            list = parseNames($('chQuickNames').value);
+            if (!list.length) return fail(t('請貼上學生名單，或選擇「先用座號」。', 'Paste a student list or choose Use numbers.'));
+            if (list.length > 200) return fail(t('一次最多加入 200 位學生，請縮短名單。', 'Add up to 200 students at a time. Please shorten the list.'));
+            if (list.some(x => Object.prototype.hasOwnProperty.call(Object.prototype, String(x && x.n !== undefined ? x.n : x).slice(0, 40)))) return fail(t('名單有無法使用的名稱，請在名稱前加上座號再試。', 'The list contains a reserved name. Add a student number before it and try again.'));
+          }
+          submitted = true;
+          room.name = name.slice(0, 30);
+          addNames(list); // Existing app path creates, saves and renders students.
+          // This is a brand-new empty class, so there is no teacher arrangement
+          // to preserve. Use the existing auto-seat path and persist its result.
+          room.grid = seatFit();
+          autoSeat();
+          seats(); step = 1;
+          trigger.textContent = t('繼續：看座位與試加分', 'Continue: seats & points');
+        };
+        $('chQuickName').focus();
+      });
+    return true;
+  }
   function action() {
-    if (step === 0) { const b = document.getElementById('btnAdd'); if (b) b.click(); }
+    if (step === 0) { if (!quickClass()) { const b = document.getElementById('btnAdd'); if (b) b.click(); } }
     else {
       seats();
-      if (step === 1 && !document.body.classList.contains('nwtools')) { const b = document.getElementById('chSeatTools'); if (b) b.click(); }
       if (typeof seatEdit !== 'undefined' && seatEdit) { const b = document.getElementById('seDone') || document.getElementById('seEdit'); if (b) b.click(); }
       if (step === 2) { const b = document.getElementById('pickCur'); if (b) { b.scrollIntoView({ block: 'nearest' }); b.focus(); } }
     }
@@ -125,6 +180,11 @@
       remember();
       // Invitation only: never open a modal or change classroom state on startup.
       trigger.textContent = t('第一堂課？開始指引', 'First lesson? Start guide');
+    }
+    // This URL comes from the explicit "create my class" demo action.
+    // Ordinary launches still show only an optional invitation.
+    if (new URLSearchParams(location.search).get('firstLesson') === '1' && eligible()) {
+      journey = true; journeyKey = key(); remember(); quickClass();
     }
     new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
   }
