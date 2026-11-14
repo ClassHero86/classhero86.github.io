@@ -1,7 +1,8 @@
 /*! © 2026 getClassHero — 86 Studio. */
 (function () {
   'use strict';
-  let installed = false, panel, trigger, step = 0, active = false;
+  let installed = false, panel, trigger, classTools, step = 0, active = false;
+  const simpleChoices = new Map(), managedSimpleScopes = new Set();
   const key = () => 'ch:first-lesson-guide:v1:' + (window.CH && window.CH.profile && window.CH.profile.user_id ? 'account:' + window.CH.profile.user_id : 'device');
   let journey = false, journeyKey = '', initialRooms = null, roomScope = '';
   const knownClassScopes = new Set();
@@ -32,11 +33,55 @@
     }
     return !hadClass;
   }
+  function currentRoom() { return typeof S !== 'undefined' && S; }
+  function writableRoom() {
+    const room = currentRoom();
+    return !!room && !demo(room) && !document.body.classList.contains('chLockRO') &&
+      !(window.CH && typeof window.CH.canWrite === 'function' && !window.CH.canWrite());
+  }
+  function emptyRoom() { const room = currentRoom(); return writableRoom() && Array.isArray(room.students) && room.students.length === 0; }
+  function simpleKey() { const room = currentRoom(); return key() + ':simple:' + (room && room.id || 'starter'); }
+  function simpleMode() {
+    if (!writableRoom()) return false;
+    const k = simpleKey();
+    if (!simpleChoices.has(k)) {
+      let saved = null;
+      try { saved = localStorage.getItem(k); } catch (_) {}
+      const first = eligible();
+      if (saved === '1' || saved === '0' || first) managedSimpleScopes.add(k);
+      simpleChoices.set(k, saved === '1' || (saved !== '0' && first));
+    }
+    return simpleChoices.get(k);
+  }
+  function chooseSimple(value) {
+    const k = simpleKey(); managedSimpleScopes.add(k); simpleChoices.set(k, !!value);
+    try { localStorage.setItem(k, value ? '1' : '0'); } catch (_) {}
+    syncClassTools();
+    if (window.CH_SEAT_CONTROLS && typeof window.CH_SEAT_CONTROLS.refit === 'function') window.CH_SEAT_CONTROLS.refit();
+    else window.dispatchEvent(new Event('resize'));
+  }
+  function syncClassTools() {
+    if (!classTools) return;
+    const room = currentRoom(), available = !!room && !demo(room), simple = available && simpleMode();
+    if (document.body.classList.contains('ch-lesson-simple') !== !!simple) document.body.classList.toggle('ch-lesson-simple', !!simple);
+    classTools.hidden = !available;
+    const quick = classTools.querySelector('[data-class-quick]'), mode = classTools.querySelector('[data-class-mode]');
+    quick.hidden = !emptyRoom();
+    quick.textContent = t('快速建立班級：貼名單或輸入人數', 'Quick class setup: paste names or enter a class size');
+    mode.hidden = !writableRoom() || !managedSimpleScopes.has(simpleKey());
+    mode.textContent = simple ? t('更多功能（完整介面）', 'More tools (full view)') : t('切換簡潔介面', 'Switch to simple view');
+    mode.setAttribute('aria-pressed', String(simple));
+    classTools.hidden = !available || (quick.hidden && mode.hidden);
+    const header = document.querySelector('#app > header');
+    if (header && simple && classTools.parentElement !== header) header.appendChild(classTools);
+    else if (header && !simple && classTools.parentElement === header) header.after(classTools);
+  }
   function syncAvailability() {
     const allow = eligible() || (journey && journeyKey === key());
     if (!allow) active = false;
     if (trigger) trigger.hidden = !allow || active;
     if (panel) panel.hidden = !allow || !active;
+    syncClassTools();
     return allow;
   }
   const en = () => document.documentElement.classList.contains('i18n-en');
@@ -50,14 +95,14 @@
   function seen() { try { return !!localStorage.getItem(key()); } catch (_) { return false; } }
   function seats() { if (typeof setView === 'function') setView('seat'); }
   function quickClass() {
-    // Only the untouched starter class is eligible. Never replace an existing
-    // class or copy the fictional guest roster into a signed-in account.
-    if (!eligible() || typeof S === 'undefined' || !S || demo(S) || (S.students || []).length) return false;
+    // Any writable empty class can use this entry. First-lesson eligibility is
+    // separate; never replace students or copy the fictional guest roster.
+    if (!emptyRoom()) return false;
     if (typeof modal !== 'function' || typeof parseNames !== 'function' || typeof addNames !== 'function' || typeof seatFit !== 'function' || typeof autoSeat !== 'function') return false;
-    const room = S, scope = key();
+    const room = S, scope = key(), shared = !!document.getElementById('chLockIc');
     const encode = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     modal('<div data-notr><h2>' + t('建立自己的班級', 'Create your class') + '</h2>' +
-      '<label for="chQuickName">' + t('班級名稱', 'Class name') + '</label><input id="chQuickName" maxlength="30" value="' + encode(room.name || '') + '" placeholder="' + t('例如：三年甲班', 'e.g. Class 3A') + '">' +
+      '<label for="chQuickName">' + t('班級名稱', 'Class name') + '</label><input id="chQuickName" maxlength="30" ' + (shared ? 'readonly ' : '') + 'value="' + encode(room.name || '') + '" placeholder="' + t('例如：三年甲班', 'e.g. Class 3A') + '">' +
       '<div class="row" style="margin:12px 0"><button type="button" class="chip" id="chQuickList" aria-pressed="true">' + t('貼上名單', 'Paste a list') + '</button><button type="button" class="nb" id="chQuickNumbers" aria-pressed="false">' + t('先用座號', 'Use numbers') + '</button></div>' +
       '<div id="chQuickListFields"><label for="chQuickNames">' + t('每行一位學生，可直接貼上 Excel 名單', 'One student per line; you can paste from Excel') + '</label><textarea id="chQuickNames" rows="6" placeholder="' + t('小明\n小欣\n小宇', 'Alex\nMia\nLeo') + '"></textarea></div>' +
       '<div id="chQuickNumberFields" hidden><label for="chQuickCount">' + t('學生人數（1–60）', 'Number of students (1–60)') + '</label><input id="chQuickCount" type="number" min="1" max="60" step="1" value="30"><p>' + t('先建立 01、02、03…；之後可以換成姓名，保留分數與座位。', 'Start with 01, 02, 03… Replace these with names later, keeping points and seats.') + '</p></div>' +
@@ -76,7 +121,7 @@
         $('chQuickSave').onclick = () => {
           if (submitted) return;
           const fail = message => { $('chQuickError').textContent = message; };
-          if (scope !== key() || S !== room || !eligible() || (room.students || []).length) return fail(t('班級狀態已變更，請關閉此視窗後重新開始。', 'Your class changed. Close this window and start again.'));
+          if (scope !== key() || S !== room || !emptyRoom()) return fail(t('班級狀態已變更，請關閉此視窗後重新開始。', 'Your class changed. Close this window and start again.'));
           if (window.CH && typeof window.CH.canWrite === 'function' && !window.CH.canWrite()) return fail(t('目前無法儲存班級，請先檢查帳戶狀態。', 'Your account cannot save a class right now. Please check its status.'));
           const name = $('chQuickName').value.trim();
           if (!name) return fail(t('請先填寫班級名稱。', 'Please enter a class name.'));
@@ -92,14 +137,16 @@
             if (list.some(x => Object.prototype.hasOwnProperty.call(Object.prototype, String(x && x.n !== undefined ? x.n : x).slice(0, 40)))) return fail(t('名單有無法使用的名稱，請在名稱前加上座號再試。', 'The list contains a reserved name. Add a student number before it and try again.'));
           }
           submitted = true;
-          room.name = name.slice(0, 30);
+          if (!shared) room.name = name.slice(0, 30);
+          chooseSimple(true);
           addNames(list); // Existing app path creates, saves and renders students.
           // This is a brand-new empty class, so there is no teacher arrangement
           // to preserve. Use the existing auto-seat path and persist its result.
           room.grid = seatFit();
           autoSeat();
           seats(); step = 1;
-          trigger.textContent = t('繼續：看座位與試加分', 'Continue: seats & points');
+          if (trigger) trigger.textContent = t('繼續：看座位與試加分', 'Continue: seats & points');
+          syncClassTools();
         };
         $('chQuickName').focus();
       });
@@ -175,7 +222,16 @@
     trigger = document.createElement('button'); trigger.id = 'chLessonHelp'; trigger.type = 'button'; trigger.hidden = true; trigger.onclick = open;
     panel = document.createElement('aside'); panel.id = 'chLessonGuide'; panel.hidden = true; panel.setAttribute('aria-labelledby', 'chLgTitle'); panel.setAttribute('aria-label', t('第一堂課指引', 'First lesson guide'));
     panel.addEventListener('keydown', e => { if (e.key === 'Escape') { e.stopPropagation(); close(false); } });
+    classTools = document.createElement('div'); classTools.id = 'chClassTools'; classTools.setAttribute('data-notr', '');
+    classTools.innerHTML = '<button type="button" data-class-quick></button><button type="button" data-class-mode></button>';
+    classTools.querySelector('[data-class-quick]').onclick = quickClass;
+    classTools.querySelector('[data-class-mode]').onclick = () => chooseSimple(!simpleMode());
+    const header = document.querySelector('#app > header');
+    if (header) header.after(classTools); else document.getElementById('app').prepend(classTools);
+    style.textContent += '#chClassTools{display:flex;gap:8px;flex-wrap:wrap;padding:8px 12px;background:#fff9df;border-bottom:1px solid #dbc99d}#chClassTools[hidden],#chClassTools button[hidden]{display:none!important}#chClassTools button{font:inherit;min-height:36px;padding:7px 12px;border:2px solid #493421;border-radius:10px;background:#fff;color:#332419;cursor:pointer}#chClassTools [data-class-quick]{background:#ffd34b;font-weight:700}#chClassTools [data-class-mode]{margin-left:auto}body.ch-lesson-simple #app>header nav>*:not([data-v=seat]):not([data-v=boss]),body.ch-lesson-simple #fcBar,body.ch-lesson-simple #advBan,body.ch-lesson-simple #atStrip,body.ch-lesson-simple #v-seat .seathint,body.ch-lesson-simple:not(.nwtools) #v-seat .seatbar,body.ch-lesson-simple #dock #hwReview,body.ch-lesson-simple #dock #rbBotX,body.ch-lesson-simple #dock .rchip,body.ch-lesson-simple #dock #minusBtn{display:none!important}body.ch-lesson-simple #dock{padding:8px}body.ch-lesson-simple #dock #pickCur,body.ch-lesson-simple #dock #undoBtn,body.ch-lesson-simple #chScoreSummary{display:revert}';
+    style.textContent += 'body.ch-lesson-simple #app>header{padding:5px 8px;gap:5px;min-height:0}body.ch-lesson-simple #app>header nav{flex:0 0 auto;gap:4px}body.ch-lesson-simple #roomBtn{display:none!important}body.ch-lesson-simple #app>header button,body.ch-lesson-simple #roomSel{font-size:14px;line-height:1.2;min-height:34px;padding:5px 8px}body.ch-lesson-simple #chClassTools{display:flex;flex:0 0 auto;padding:0;border:0;background:transparent;gap:4px}body.ch-lesson-simple #chClassTools [data-class-mode]{margin-left:0}body.ch-lesson-simple #app main{padding:5px 8px!important}body.ch-lesson-simple #chSeatControls{display:inline-flex!important;vertical-align:middle;margin:3px 5px 3px 0;padding:0;gap:4px}body.ch-lesson-simple #chSeatControls button,body.ch-lesson-simple #seatNoticeSummary{font-size:13px;line-height:1.2;padding:5px 7px;min-height:32px}body.ch-lesson-simple #seatNoticeSummary{display:inline-flex!important;vertical-align:middle;margin:3px 0}body.ch-lesson-simple #v-seat>.board{font-size:14px;line-height:20px;min-height:0;height:auto;padding:3px 8px;margin:3px auto 5px}body.ch-lesson-simple #dock{display:flex!important;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 8px;padding:5px 8px;min-height:0}body.ch-lesson-simple #dock #pickCur{order:0}body.ch-lesson-simple #dock #undoBtn{order:1}body.ch-lesson-simple #dock #pickCur,body.ch-lesson-simple #dock #undoBtn{font-size:15px;line-height:1.2;min-height:36px;padding:6px 12px;margin:0}body.ch-lesson-simple #chScoreSummary{order:2;display:block!important;flex-basis:100%;padding:0 4px;font-size:12px;line-height:1.4;margin:0;text-align:center}body.ch-lesson-simple #dock>[hidden]{display:none!important}';
     document.body.append(trigger, panel); draw();
+    if (simpleMode()) seats();
     if (syncAvailability() && !seen()) {
       remember();
       // Invitation only: never open a modal or change classroom state on startup.
@@ -204,5 +260,5 @@
     window.CH_POST = function () { const result = typeof post === 'function' ? post.apply(this, arguments) : undefined; mount(); return result; };
     return true;
   }
-  window.CH_LESSON_GUIDE = { install: install, open: open };
+  window.CH_LESSON_GUIDE = { install: install, open: open, quickClass: quickClass };
 })();

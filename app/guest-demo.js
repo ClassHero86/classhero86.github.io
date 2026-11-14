@@ -75,7 +75,7 @@
       const compact = document.createElement('style');
       compact.textContent = '#chGuestBar{position:sticky;top:0;padding:7px 12px;gap:4px 12px;font-size:13px}#chGuestBar strong{font-size:13px}#chGuestBar button{padding:6px 9px}#chGuestBar~#app header,header{display:none!important}#v-seat .seatbar,#v-seat .seathint,#v-seat>#advBan,#v-seat>#atStrip,#fcBar,#rbTools{display:none!important}#dock .hintbar,#dock .rchip,#dock #minusBtn,#dock .hw-dock{display:none!important}#dock{min-height:0!important;padding:5px!important}#dock #pickCur{display:inline-flex!important}#v-seat .board{padding:3px;font-size:13px;margin:3px}#sg{gap:8px!important}';
       document.head.appendChild(compact);
-      compact.textContent += '#dock>:not(#pickCur):not(#undoBtn){display:none!important}';
+      compact.textContent += '#dock>:not(#pickCur):not(#undoBtn):not(#chScoreSummary){display:none!important}';
       window.dispatchEvent(new Event('resize'));
       try { dirty = false; fileDirty = false; } catch (_) {}
     };
