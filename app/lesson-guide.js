@@ -42,10 +42,9 @@
   const en = () => document.documentElement.classList.contains('i18n-en');
   const t = (zh, english) => en() ? english : zh;
   const steps = [
-    ['加入學生', 'Add students', '開啟「學生」，貼上名單並儲存。已有學生可直接繼續。', 'Open Students, paste your class list and save. If students are already here, continue.', '開啟學生名單', 'Open Students', '我已確認學生名單', 'I have checked the class list'],
-    ['調整座位', 'Arrange seats', '可先用「全班一頁」及「座位大小」調整顯示。需要換位時，進入排位模式，點選學生再點目標位置，完成後按「排完」。排位模式不會加分。', 'Use Fit class and Seat size to adjust the view. To move students, enter seating mode, select a student and then a destination, and finish seating when ready. Seating mode does not award points.', '開啟排位模式', 'Arrange seats', '我已確認座位', 'I have checked the seats'],
-    ['選擇加分規則', 'Choose an award', '先完成排位，再從底部獎勵列選擇規則。選擇規則不會加分；點學生才會發放。', 'Finish seating, then choose an award from the bottom bar. Choosing an award does not give points; clicking a student does.', '查看加分規則', 'Show awards', '我已選好規則', 'I have chosen an award'],
-    ['練習加分與撤銷', 'Try an award and undo', '如要練習，請自行點一位學生加分，再立即按底部「撤銷」。這會更改真實學生資料，指引不會代你操作。不想練習可直接略過。', 'To practise, click one student to award points, then immediately click Undo in the bottom bar. This changes real student data; the guide will not do it for you. You can skip this practice.', '返回座位練習', 'Go to seats', '我已完成練習，返回座位', 'I have finished; return to seats']
+    ['加入學生', 'Add students', '在「學生」貼上名單並儲存，即可開始。其他資料可以稍後補上。', 'Paste your class list in Students and save. You can fill in other details later.', '加入學生名單', 'Add your class list', '下一步：看座位', 'Next: see seats'],
+    ['全班一眼看清', 'See the whole class', '先用預設座位上課即可。需要時，用「全班一頁」或「座位大小」調整顯示；不用先完成排位。', 'Start with the default seats. Use Fit class or Seat size if needed; arranging seats can wait.', '查看全班座位', 'See the class', '下一步：試加分', 'Next: award points'],
+    ['選規則，點學生加分', 'Choose an award, then a student', '從底部選擇加分規則，再點學生。按錯可按「撤銷」。第一堂先用這個就夠了，其他玩法稍後再探索。', 'Choose an award in the bottom bar, then click a student. Use Undo if needed. That is enough for your first lesson; explore other games later.', '查看加分規則', 'See awards', '完成，開始上課', 'Done; start teaching']
   ];
   function remember() { try { localStorage.setItem(key(), 'seen'); } catch (_) {} }
   function seen() { try { return !!localStorage.getItem(key()); } catch (_) { return false; } }
@@ -54,12 +53,9 @@
     if (step === 0) { const b = document.getElementById('btnAdd'); if (b) b.click(); }
     else {
       seats();
-      if (step === 1 && typeof seatEdit !== 'undefined' && !seatEdit) { const b = document.getElementById('seEdit'); if (b) b.click(); }
       if (step === 1 && !document.body.classList.contains('nwtools')) { const b = document.getElementById('chSeatTools'); if (b) b.click(); }
-      if (step === 2 || step === 3) {
-        if (typeof seatEdit !== 'undefined' && seatEdit) { const b = document.getElementById('seDone') || document.getElementById('seEdit'); if (b) b.click(); }
-        if (step === 2) { const b = document.getElementById('pickCur'); if (b) { b.scrollIntoView({ block: 'nearest' }); b.focus(); } }
-      }
+      if (typeof seatEdit !== 'undefined' && seatEdit) { const b = document.getElementById('seDone') || document.getElementById('seEdit'); if (b) b.click(); }
+      if (step === 2) { const b = document.getElementById('pickCur'); if (b) { b.scrollIntoView({ block: 'nearest' }); b.focus(); } }
     }
     // Keep the class visible while the teacher carries out the actual action.
     close(false, false);
@@ -84,9 +80,9 @@
     if (!active) return;
     const s = steps[step];
     panel.innerHTML = '<div class="ch-lg-head"><strong id="chLgTitle"></strong><button type="button" data-lg="close"></button></div><p id="chLgText"></p><p class="ch-lg-note"></p><div class="ch-lg-actions"><button type="button" data-lg="action"></button><button type="button" data-lg="next"></button></div><div class="ch-lg-foot"><button type="button" data-lg="back"></button><button type="button" data-lg="skip"></button></div>';
-    panel.querySelector('strong').textContent = (step + 1) + '/4 · ' + t(s[0], s[1]);
+    panel.querySelector('strong').textContent = (step + 1) + '/' + steps.length + ' · ' + t(s[0], s[1]);
     panel.querySelector('#chLgText').textContent = t(s[2], s[3]);
-    panel.querySelector('.ch-lg-note').textContent = t('各步由你確認；開啟畫面不代表已完成。', 'You confirm each step; opening a screen does not mark it complete.');
+    panel.querySelector('.ch-lg-note').textContent = t('可隨時收起指引，直接操作班級。', 'Minimize this guide at any time to work with your class.');
     const labels = {close: t('收起', 'Minimize'), action: t(s[4], s[5]), next: t(s[6], s[7]), back: t('上一步', 'Back'), skip: t('略過指引，返回座位', 'Skip guide; go to seats')};
     panel.querySelectorAll('[data-lg]').forEach(b => { b.textContent = labels[b.dataset.lg]; b.onclick = () => {
       const a = b.dataset.lg;
@@ -94,7 +90,7 @@
       else if (a === 'close') close(false);
       else if (a === 'skip') close(true);
       else if (a === 'back') { step = Math.max(0, step - 1); draw(); panel.querySelector('[data-lg="next"]').focus(); }
-      else if (step === 3) close(true);
+      else if (step === steps.length - 1) close(true);
       else { step++; draw(); panel.querySelector('[data-lg="next"]').focus(); }
     }; });
     panel.querySelector('[data-lg="back"]').disabled = step === 0;

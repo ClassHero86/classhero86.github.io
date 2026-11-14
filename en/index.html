@@ -7,13 +7,13 @@
 <title>ClassHero — Every Hand Goes Up</title>
 <link rel="icon" href="../favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
-<meta name="description" content="ClassHero: a classroom gamification platform for Hong Kong teachers. Seating-chart points, boss battles, gacha and a world map. Free trial extended to 30 days, no credit card needed.">
+<meta name="description" content="getClassHero: try points, a boss battle and Quiet World in a ready-made demo class. No sign-in needed. Sign in when you are ready to save your own class.">
 <link rel="canonical" href="https://getclasshero.com/en/">
 <link rel="alternate" hreflang="zh-Hant" href="https://getclasshero.com/">
 <link rel="alternate" hreflang="en" href="https://getclasshero.com/en/">
 <link rel="alternate" hreflang="x-default" href="https://getclasshero.com/">
 <meta property="og:title" content="ClassHero — Every Hand Goes Up">
-<meta property="og:description" content="A classroom gamification platform for Hong Kong teachers. Free trial extended to 30 days, no credit card needed.">
+<meta property="og:description" content="Try a ready-made demo class: award points, battle a boss and explore Quiet World. No sign-in needed.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://getclasshero.com/en/">
 <meta property="og:image" content="https://getclasshero.com/img/og_en.jpg">
@@ -114,20 +114,12 @@ section{padding:40px 0}
 .sec-h{text-align:center;font-size:clamp(28px,5vw,40px);margin-bottom:8px}
 .sec-sub{text-align:center;color:var(--ink2);margin:0 0 28px}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.tease{position:relative;overflow:hidden;cursor:pointer;padding:0;display:flex;flex-direction:column;text-align:left;font:inherit;color:inherit}
+.tease{position:relative;overflow:hidden;padding:0;display:flex;flex-direction:column;text-align:left;font:inherit;color:inherit}
 .tease .pic{position:relative;height:170px;overflow:hidden;border-bottom:3px solid var(--ink);width:100%}
 .tease .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:filter .4s}
-.tease .pic img.fog{filter:blur(9px) saturate(1.2);-webkit-mask-image:linear-gradient(90deg,transparent 0 var(--peek,42%),#000 calc(var(--peek,42%) + 12%));mask-image:linear-gradient(90deg,transparent 0 var(--peek,42%),#000 calc(var(--peek,42%) + 12%));transition:-webkit-mask-position .5s}
-.tease .pic::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 0 calc(var(--peek,42%) + 6%),rgba(246,234,210,.35) 70%)}
-.tease .lock{position:absolute;top:10px;right:10px;z-index:2;background:var(--ink);color:var(--yel);font-weight:900;font-size:12px;padding:3px 9px;border-radius:999px}
-.tease .q{position:absolute;bottom:10px;right:14px;z-index:2;font-size:44px;font-weight:900;color:#fff;text-shadow:3px 3px 0 var(--ink);transition:opacity .3s}
 .tease .txt{padding:12px 14px 14px}
 .tease h3{font-size:18px}
 .tease .hook{margin:2px 0 0;color:var(--ink2);font-size:14px}
-.tease.open{--peek:62%}
-.tease.open .q{opacity:0}
-.tease:hover .pic img.fog,.tease.open .pic img.fog{filter:blur(6px)}
-.tease:focus-visible{outline:3px solid var(--blu);outline-offset:3px}
 .tip{text-align:center;font-size:13px;color:var(--ink2);margin-top:14px}
 .prices{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1120px;margin:0 auto}
 .plan.life{background:linear-gradient(180deg,#fff1c2,#fffaf0)}
@@ -150,19 +142,28 @@ footer a{color:inherit}
 @media (max-width:760px){.hero{grid-template-columns:1fr;gap:28px;padding-top:10px;text-align:center}.stage{transform:none}}
 @media (max-width:480px){.grid{gap:14px}.tease .pic{height:120px}.tease .txt{padding:10px}.tease h3{font-size:16px}.tease .hook{font-size:13px}.tease .q{font-size:32px}.s3{display:none}.btn{font-size:16px;padding:12px 18px}}
 @media (prefers-reduced-motion:reduce){.stage .sticker{animation:none}}
+
+.demo-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:24px 0}
+.demo-step{padding:20px}
+.demo-step .step-number{display:inline-grid;place-items:center;width:34px;height:34px;background:var(--yel);border:2px solid var(--ink);border-radius:50%;font-weight:900;margin-bottom:12px}
+.demo-step h3{font-size:20px}.demo-step p{margin:8px 0 0;color:var(--ink2)}
+.demo-action{text-align:center}.demo-action p{color:var(--ink2);font-size:14px;margin:14px 0 0}
+.hero .demo-note{font-size:14px;margin:14px 0 0}
+@media(max-width:700px){.demo-steps{grid-template-columns:1fr}.demo-step{padding:16px}}
 </style>
 <script src="/attribution.js?v=20261021" defer></script>
 </head>
 <body>
 <div class="wrap">
-<nav><b>⚔️ ClassHero</b><span class="lang"><a href="../" hreflang="zh-Hant" lang="zh-Hant">中文</a>｜<b aria-current="page">English</b></span><div class="nav-actions"><a class="login" href="../app/?lang=en">Log in</a><a class="mini" href="../app/?lang=en">Free trial</a></div></nav>
+<nav><b>⚔️ ClassHero</b><span class="lang"><a href="../" hreflang="zh-Hant" lang="zh-Hant">中文</a>｜<b aria-current="page">English</b></span><div class="nav-actions"><a class="login" href="../app/?lang=en">Log in</a><a class="mini" href="../app/?demo=1&amp;lang=en">Try the demo</a></div></nav>
 
 <header class="hero">
   <div>
     <h1 class="pop">Every hand<br>goes up</h1>
     <p>Tap a seat and that student's hero levels up on the spot.</p>
-    <p style="margin:0 0 18px;font-weight:700;color:var(--ink)">We’ve extended the free trial to 30 days so teachers have more time to try ClassHero in their own classrooms.</p>
-    <a class="btn" href="../app/?lang=en">Try it free for 30 days<small>No credit card needed</small></a>
+    <p style="margin:0 0 18px;font-weight:700;color:var(--ink)">Your demo class is ready. Try points, a boss battle and Quiet World without signing in.</p>
+    <a class="btn" href="../app/?demo=1&amp;lang=en">Try a demo class<small>No sign-in · Fictional students</small></a>
+    <p class="demo-note">Sign in when you are ready to save your own class and start a 30-day free trial.</p>
   </div>
   <div class="stage box">
     <img src="../img/play/class.webp" alt="ClassHero gameplay: the whole class's character cards and the points toolbar" width="900" height="359" fetchpriority="high">
@@ -173,21 +174,34 @@ footer a{color:inherit}
 </header>
 </div>
 
+<section aria-labelledby="first-lesson-title">
+<div class="wrap">
+  <h2 id="first-lesson-title" class="sec-h pop">Your first lesson in three small steps</h2>
+  <p class="sec-sub">You do not need to learn every feature. Follow one short classroom routine in the demo.</p>
+  <div class="demo-steps">
+    <article class="demo-step box"><span class="step-number">1</span><h3>Award points</h3><p>Tap a demo student to recognise an answer or a little effort.</p></article>
+    <article class="demo-step box"><span class="step-number">2</span><h3>Battle a boss together</h3><p>Ask a review question and see a student’s character attack.</p></article>
+    <article class="demo-step box"><span class="step-number">3</span><h3>Explore Quiet World</h3><p>Move into reading or independent work and see what quiet time brings.</p></article>
+  </div>
+  <div class="demo-action"><a class="btn" href="../app/?demo=1&amp;lang=en">Try the first-lesson demo</a><p>The demo uses a fictional class. Sign in when you want to save your own class.</p></div>
+</div>
+</section>
+
 <section>
 <div class="wrap">
   <h2 class="sec-h pop">What else is inside?</h2>
-  <p class="sec-sub">Just a quick peek.</p>
+  <p class="sec-sub">See the activities clearly and choose what fits your class.</p>
   <div class="grid">
-    <button class="tease box" type="button"><div class="pic"><img src="../img/play/boss.webp" alt="" loading="lazy"><img class="fog" src="../img/play/boss.webp" alt="" loading="lazy"><span class="lock">🔒 Sign in to unlock</span><span class="q">?</span></div><div class="txt"><h3>Boss Battles</h3><p class="hook">How much HP is left?</p></div></button>
-    <button class="tease box" type="button"><div class="pic"><img src="../img/play/gacha.webp" alt="" loading="lazy"><img class="fog" src="../img/play/gacha.webp" alt="" loading="lazy"><span class="lock">🔒 Sign in to unlock</span><span class="q">?</span></div><div class="txt"><h3>Pet Gacha</h3><p class="hook">What's in the last egg?</p></div></button>
-    <button class="tease box" type="button"><div class="pic"><img src="../img/play/claw.webp" alt="" loading="lazy"><img class="fog" src="../img/play/claw.webp" alt="" loading="lazy"><span class="lock">🔒 Sign in to unlock</span><span class="q">?</span></div><div class="txt"><h3>Claw Machine</h3><p class="hook">Will it grab one this time?</p></div></button>
-    <button class="tease box" type="button"><div class="pic"><img src="../img/play/world.webp" alt="" loading="lazy"><img class="fog" src="../img/play/world.webp" alt="" loading="lazy"><span class="lock">🔒 Sign in to unlock</span><span class="q">?</span></div><div class="txt"><h3>World Map</h3><p class="hook">What's behind the castle?</p></div></button>
-    <button class="tease box" type="button"><div class="pic"><img src="../img/play/camp.webp" alt="" loading="lazy" style="object-position:50% 20%"><img class="fog" src="../img/play/camp.webp" alt="" loading="lazy" style="object-position:50% 20%"><span class="lock">🔒 Sign in to unlock</span><span class="q">?</span></div><div class="txt"><h3>Campfire Wrap-up</h3><p class="hook">Who's today's MVP?</p></div></button>
-    <button class="tease box" type="button"><div class="pic"><img src="../img/play/badge.webp" alt="" loading="lazy"><img class="fog" src="../img/play/badge.webp" alt="" loading="lazy"><span class="lock">🔒 Sign in to unlock</span><span class="q">?</span></div><div class="txt"><h3>Badge Moments</h3><p class="hook">Three pop out at once</p></div></button>
-    <button class="tease box" type="button"><div class="pic"><img src="../img/play/pusher.webp" alt="" loading="lazy"><img class="fog" src="../img/play/pusher.webp" alt="" loading="lazy"><span class="lock">🔒 Sign in to unlock</span><span class="q">?</span></div><div class="txt"><h3>Coin Pusher</h3><p class="hook">So close to tipping over</p></div></button>
-    <button class="tease box" type="button"><div class="pic"><img src="../img/play/gear.webp" alt="" loading="lazy"><img class="fog" src="../img/play/gear.webp" alt="" loading="lazy"><span class="lock">🔒 Sign in to unlock</span><span class="q">?</span></div><div class="txt"><h3>Gear Vault</h3><p class="hook">How long to save up for wings?</p></div></button>
+    <article class="tease box"><div class="pic"><img src="../img/play/boss.webp" alt="" loading="lazy"></div><div class="txt"><h3>Boss Battles</h3><p class="hook">How much HP is left?</p></div></article>
+    <article class="tease box"><div class="pic"><img src="../img/play/gacha.webp" alt="" loading="lazy"></div><div class="txt"><h3>Pet Gacha</h3><p class="hook">What's in the last egg?</p></div></article>
+    <article class="tease box"><div class="pic"><img src="../img/play/claw.webp" alt="" loading="lazy"></div><div class="txt"><h3>Claw Machine</h3><p class="hook">Will it grab one this time?</p></div></article>
+    <article class="tease box"><div class="pic"><img src="../img/play/world.webp" alt="" loading="lazy"></div><div class="txt"><h3>World Map</h3><p class="hook">What's behind the castle?</p></div></article>
+    <article class="tease box"><div class="pic"><img src="../img/play/camp.webp" alt="" loading="lazy" style="object-position:50% 20%"></div><div class="txt"><h3>Campfire Wrap-up</h3><p class="hook">Who's today's MVP?</p></div></article>
+    <article class="tease box"><div class="pic"><img src="../img/play/badge.webp" alt="" loading="lazy"></div><div class="txt"><h3>Badge Moments</h3><p class="hook">Three pop out at once</p></div></article>
+    <article class="tease box"><div class="pic"><img src="../img/play/pusher.webp" alt="" loading="lazy"></div><div class="txt"><h3>Coin Pusher</h3><p class="hook">So close to tipping over</p></div></article>
+    <article class="tease box"><div class="pic"><img src="../img/play/gear.webp" alt="" loading="lazy"></div><div class="txt"><h3>Gear Vault</h3><p class="hook">How long to save up for wings?</p></div></article>
   </div>
-  <p class="tip">Tap a card to peek a little more. The rest? Try it and find out.</p>
+  <p class="tip">The no-sign-in demo includes points, a boss battle and Quiet World. Explore other activities in the free trial after signing in.</p>
 </div>
 </section>
 
@@ -208,8 +222,8 @@ footer a{color:inherit}
 </section>
 
 <div class="final">
-  <h2 class="pop">Try it next lesson?</h2>
-  <a class="btn" href="../app/?lang=en">Try it free for 30 days<small>No credit card needed</small></a>
+  <h2 class="pop">Try a lesson, then make it your own</h2>
+  <a class="btn" href="../app/?demo=1&amp;lang=en">Try a demo class<small>No sign-in · Fictional students</small></a>
 </div>
 
 <div class="wrap">
@@ -219,8 +233,5 @@ footer a{color:inherit}
   <p>&copy; 2026 ClassHero. All rights reserved.</p>
 </footer>
 </div>
-<script>
-document.querySelectorAll('.tease').forEach(function(c){c.addEventListener('click',function(){c.classList.toggle('open')})});
-</script>
 </body>
 </html>

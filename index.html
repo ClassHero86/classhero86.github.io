@@ -7,13 +7,13 @@
 <title>班級英雄 ClassHero — 讓全班主動參與課堂</title>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
-<meta name="description" content="班級英雄 ClassHero：適合教師使用的課堂遊戲化平台。座位表加分、BOSS 戰、扭蛋、世界地圖。免費試用延長至 30 日，無須信用卡。">
+<meta name="description" content="getClassHero：免登入體驗示範班級，立即試座位加分、BOSS 戰與靜音看世界。準備儲存自己的班級時再登入。">
 <link rel="canonical" href="https://getclasshero.com/">
 <link rel="alternate" hreflang="zh-Hant" href="https://getclasshero.com/">
 <link rel="alternate" hreflang="en" href="https://getclasshero.com/en/">
 <link rel="alternate" hreflang="x-default" href="https://getclasshero.com/">
 <meta property="og:title" content="班級英雄 ClassHero — 讓全班主動參與課堂">
-<meta property="og:description" content="適合教師使用的課堂遊戲化平台。免費試用延長至 30 日，無須信用卡。">
+<meta property="og:description" content="免登入體驗示範班級：試加分、一起打 BOSS，再用靜音看世界練習專注。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://getclasshero.com/">
 <meta property="og:image" content="https://getclasshero.com/img/og.jpg">
@@ -114,20 +114,12 @@ section{padding:40px 0}
 .sec-h{text-align:center;font-size:clamp(28px,5vw,40px);margin-bottom:8px}
 .sec-sub{text-align:center;color:var(--ink2);margin:0 0 28px}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.tease{position:relative;overflow:hidden;cursor:pointer;padding:0;display:flex;flex-direction:column;text-align:left;font:inherit;color:inherit}
+.tease{position:relative;overflow:hidden;padding:0;display:flex;flex-direction:column;text-align:left;font:inherit;color:inherit}
 .tease .pic{position:relative;height:170px;overflow:hidden;border-bottom:3px solid var(--ink);width:100%}
 .tease .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:filter .4s}
-.tease .pic img.fog{filter:blur(9px) saturate(1.2);-webkit-mask-image:linear-gradient(90deg,transparent 0 var(--peek,42%),#000 calc(var(--peek,42%) + 12%));mask-image:linear-gradient(90deg,transparent 0 var(--peek,42%),#000 calc(var(--peek,42%) + 12%));transition:-webkit-mask-position .5s}
-.tease .pic::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 0 calc(var(--peek,42%) + 6%),rgba(246,234,210,.35) 70%)}
-.tease .lock{position:absolute;top:10px;right:10px;z-index:2;background:var(--ink);color:var(--yel);font-weight:900;font-size:12px;padding:3px 9px;border-radius:999px}
-.tease .q{position:absolute;bottom:10px;right:14px;z-index:2;font-size:44px;font-weight:900;color:#fff;text-shadow:3px 3px 0 var(--ink);transition:opacity .3s}
 .tease .txt{padding:12px 14px 14px}
 .tease h3{font-size:18px}
 .tease .hook{margin:2px 0 0;color:var(--ink2);font-size:14px}
-.tease.open{--peek:62%}
-.tease.open .q{opacity:0}
-.tease:hover .pic img.fog,.tease.open .pic img.fog{filter:blur(6px)}
-.tease:focus-visible{outline:3px solid var(--blu);outline-offset:3px}
 .tip{text-align:center;font-size:13px;color:var(--ink2);margin-top:14px}
 .prices{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1120px;margin:0 auto}
 .plan.life{background:linear-gradient(180deg,#fff1c2,#fffaf0)}
@@ -150,19 +142,28 @@ footer a{color:inherit}
 @media (max-width:760px){.hero{grid-template-columns:1fr;gap:28px;padding-top:10px;text-align:center}.stage{transform:none}}
 @media (max-width:480px){.grid{gap:14px}.tease .pic{height:120px}.tease .txt{padding:10px}.tease h3{font-size:16px}.tease .hook{font-size:13px}.tease .q{font-size:32px}.s3{display:none}.btn{font-size:16px;padding:12px 18px}}
 @media (prefers-reduced-motion:reduce){.stage .sticker{animation:none}}
+
+.demo-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:24px 0}
+.demo-step{padding:20px}
+.demo-step .step-number{display:inline-grid;place-items:center;width:34px;height:34px;background:var(--yel);border:2px solid var(--ink);border-radius:50%;font-weight:900;margin-bottom:12px}
+.demo-step h3{font-size:20px}.demo-step p{margin:8px 0 0;color:var(--ink2)}
+.demo-action{text-align:center}.demo-action p{color:var(--ink2);font-size:14px;margin:14px 0 0}
+.hero .demo-note{font-size:14px;margin:14px 0 0}
+@media(max-width:700px){.demo-steps{grid-template-columns:1fr}.demo-step{padding:16px}}
 </style>
 <script src="/attribution.js?v=20261021" defer></script>
 </head>
 <body>
 <div class="wrap">
-<nav><b>⚔️ 班級英雄</b><span class="lang"><b aria-current="page">中文</b>｜<a href="./en/" hreflang="en" lang="en">English</a></span><div class="nav-actions"><a class="login" href="./app/?lang=zh">登入</a><a class="mini" href="./app/?lang=zh">免費試用</a></div></nav>
+<nav><b>⚔️ 班級英雄</b><span class="lang"><b aria-current="page">中文</b>｜<a href="./en/" hreflang="en" lang="en">English</a></span><div class="nav-actions"><a class="login" href="./app/?lang=zh">登入</a><a class="mini" href="./app/?demo=1&amp;lang=zh">免登入體驗</a></div></nav>
 
 <header class="hero">
   <div>
     <h1 class="pop">讓全班<br>主動參與</h1>
     <p>點選座位加分，讓學生的角色隨課堂表現成長。</p>
-    <p style="margin:0 0 18px;font-weight:700;color:var(--ink)">為讓老師有更充裕時間在真實課堂試用，免費試用延長至 30 日。</p>
-    <a class="btn" href="./app/?lang=zh">免費試用 30 日<small>無須信用卡</small></a>
+    <p style="margin:0 0 18px;font-weight:700;color:var(--ink)">示範班級已準備好。先試加分、BOSS 戰與靜音看世界，免登入。</p>
+    <a class="btn" href="./app/?demo=1&amp;lang=zh">立即體驗示範班級<small>免登入 · 使用虛構學生</small></a>
+    <p class="demo-note">想儲存自己的班級時，再登入開始 30 日免費試用。</p>
   </div>
   <div class="stage box">
     <img src="./img/play/class.webp" alt="班級英雄遊戲畫面：全班學生角色卡與加分工具列" width="900" height="359" fetchpriority="high">
@@ -173,21 +174,34 @@ footer a{color:inherit}
 </header>
 </div>
 
+<section aria-labelledby="first-lesson-title">
+<div class="wrap">
+  <h2 id="first-lesson-title" class="sec-h pop">第一堂，先做這三件事</h2>
+  <p class="sec-sub">不用先學會所有玩法。跟著示範班級，走一次課堂的小流程。</p>
+  <div class="demo-steps">
+    <article class="demo-step box"><span class="step-number">1</span><h3>試加分</h3><p>點選一位示範學生，為一次回答或努力加分。</p></article>
+    <article class="demo-step box"><span class="step-number">2</span><h3>一起打 BOSS</h3><p>用一道複習題帶動全班，看看角色如何出擊。</p></article>
+    <article class="demo-step box"><span class="step-number">3</span><h3>靜音看世界</h3><p>切換到閱讀或獨立練習，看看安靜時間帶來的變化。</p></article>
+  </div>
+  <div class="demo-action"><a class="btn" href="./app/?demo=1&amp;lang=zh">跟著示範試一堂</a><p>示範使用虛構班級；儲存自己的班級時才需要登入。</p></div>
+</div>
+</section>
+
 <section>
 <div class="wrap">
   <h2 class="sec-h pop">還有哪些玩法？</h2>
-  <p class="sec-sub">先看看精彩內容。</p>
+  <p class="sec-sub">先看清楚玩法，再決定適合班級的使用方式。</p>
   <div class="grid">
-    <button class="tease box" type="button"><div class="pic"><img src="./img/play/boss.webp" alt="" loading="lazy"><img class="fog" src="./img/play/boss.webp" alt="" loading="lazy"><span class="lock">🔒 登入解鎖</span><span class="q">?</span></div><div class="txt"><h3>BOSS 戰</h3><p class="hook">BOSS 還剩多少生命值？</p></div></button>
-    <button class="tease box" type="button"><div class="pic"><img src="./img/play/gacha.webp" alt="" loading="lazy"><img class="fog" src="./img/play/gacha.webp" alt="" loading="lazy"><span class="lock">🔒 登入解鎖</span><span class="q">?</span></div><div class="txt"><h3>寵物扭蛋</h3><p class="hook">最後一顆蛋會孵出什麼？</p></div></button>
-    <button class="tease box" type="button"><div class="pic"><img src="./img/play/claw.webp" alt="" loading="lazy"><img class="fog" src="./img/play/claw.webp" alt="" loading="lazy"><span class="lock">🔒 登入解鎖</span><span class="q">?</span></div><div class="txt"><h3>夾娃娃機</h3><p class="hook">這次能夾到嗎？</p></div></button>
-    <button class="tease box" type="button"><div class="pic"><img src="./img/play/world.webp" alt="" loading="lazy"><img class="fog" src="./img/play/world.webp" alt="" loading="lazy"><span class="lock">🔒 登入解鎖</span><span class="q">?</span></div><div class="txt"><h3>世界地圖</h3><p class="hook">城堡後面藏著什麼？</p></div></button>
-    <button class="tease box" type="button"><div class="pic"><img src="./img/play/camp.webp" alt="" loading="lazy" style="object-position:50% 20%"><img class="fog" src="./img/play/camp.webp" alt="" loading="lazy" style="object-position:50% 20%"><span class="lock">🔒 登入解鎖</span><span class="q">?</span></div><div class="txt"><h3>營火結算</h3><p class="hook">今天誰是 MVP？</p></div></button>
-    <button class="tease box" type="button"><div class="pic"><img src="./img/play/badge.webp" alt="" loading="lazy"><img class="fog" src="./img/play/badge.webp" alt="" loading="lazy"><span class="lock">🔒 登入解鎖</span><span class="q">?</span></div><div class="txt"><h3>徽章時刻</h3><p class="hook">一次獲得三枚徽章</p></div></button>
-    <button class="tease box" type="button"><div class="pic"><img src="./img/play/pusher.webp" alt="" loading="lazy"><img class="fog" src="./img/play/pusher.webp" alt="" loading="lazy"><span class="lock">🔒 登入解鎖</span><span class="q">?</span></div><div class="txt"><h3>推金幣機</h3><p class="hook">金幣就快掉下來了</p></div></button>
-    <button class="tease box" type="button"><div class="pic"><img src="./img/play/gear.webp" alt="" loading="lazy"><img class="fog" src="./img/play/gear.webp" alt="" loading="lazy"><span class="lock">🔒 登入解鎖</span><span class="q">?</span></div><div class="txt"><h3>裝備寶庫</h3><p class="hook">還要多久才能換到翅膀？</p></div></button>
+    <article class="tease box"><div class="pic"><img src="./img/play/boss.webp" alt="" loading="lazy"></div><div class="txt"><h3>BOSS 戰</h3><p class="hook">BOSS 還剩多少生命值？</p></div></article>
+    <article class="tease box"><div class="pic"><img src="./img/play/gacha.webp" alt="" loading="lazy"></div><div class="txt"><h3>寵物扭蛋</h3><p class="hook">最後一顆蛋會孵出什麼？</p></div></article>
+    <article class="tease box"><div class="pic"><img src="./img/play/claw.webp" alt="" loading="lazy"></div><div class="txt"><h3>夾娃娃機</h3><p class="hook">這次能夾到嗎？</p></div></article>
+    <article class="tease box"><div class="pic"><img src="./img/play/world.webp" alt="" loading="lazy"></div><div class="txt"><h3>世界地圖</h3><p class="hook">城堡後面藏著什麼？</p></div></article>
+    <article class="tease box"><div class="pic"><img src="./img/play/camp.webp" alt="" loading="lazy" style="object-position:50% 20%"></div><div class="txt"><h3>營火結算</h3><p class="hook">今天誰是 MVP？</p></div></article>
+    <article class="tease box"><div class="pic"><img src="./img/play/badge.webp" alt="" loading="lazy"></div><div class="txt"><h3>徽章時刻</h3><p class="hook">一次獲得三枚徽章</p></div></article>
+    <article class="tease box"><div class="pic"><img src="./img/play/pusher.webp" alt="" loading="lazy"></div><div class="txt"><h3>推金幣機</h3><p class="hook">金幣就快掉下來了</p></div></article>
+    <article class="tease box"><div class="pic"><img src="./img/play/gear.webp" alt="" loading="lazy"></div><div class="txt"><h3>裝備寶庫</h3><p class="hook">還要多久才能換到翅膀？</p></div></article>
   </div>
-  <p class="tip">點選卡片，揭開更多內容。親自試用，探索完整玩法。</p>
+  <p class="tip">上方免登入示範提供加分、BOSS 戰與靜音看世界；其他玩法可在登入後的免費試用中探索。</p>
 </div>
 </section>
 
@@ -208,8 +222,8 @@ footer a{color:inherit}
 </section>
 
 <div class="final">
-  <h2 class="pop">下堂課就開始試用</h2>
-  <a class="btn" href="./app/?lang=zh">免費試用 30 日<small>無須信用卡</small></a>
+  <h2 class="pop">先試一堂，再建立自己的班級</h2>
+  <a class="btn" href="./app/?demo=1&amp;lang=zh">立即體驗示範班級<small>免登入 · 使用虛構學生</small></a>
 </div>
 
 <div class="wrap">
@@ -220,8 +234,5 @@ footer a{color:inherit}
   <p>&copy; 2026 班級英雄 ClassHero。保留所有權利。</p>
 </footer>
 </div>
-<script>
-document.querySelectorAll('.tease').forEach(function(c){c.addEventListener('click',function(){c.classList.toggle('open')})});
-</script>
 </body>
 </html>
