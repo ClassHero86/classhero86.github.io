@@ -1,7 +1,7 @@
 /* getClassHero guest sandbox. Loaded before any application script. */
 (function () {
   'use strict';
-  const enabled = new URLSearchParams(location.search).get('demo') === '1';
+  const enabled = false; // 免登入體驗已停用（2026-11-15）；保留代碼以便日後恢復
   if (!enabled) return;
   const en = new URLSearchParams(location.search).get('lang') === 'en';
   const t = (zh, english) => en ? english : zh;
