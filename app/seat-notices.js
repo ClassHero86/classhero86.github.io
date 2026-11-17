@@ -78,7 +78,8 @@ const na=nqAdd;nqAdd=function(o,front){if(view!=='seat')return na.apply(this,arg
 const tt=toast;toast=function(t){if(view==='seat'){add({kind:'info',text:String(t)},seatAwardDepth?mgTop():null);return}return tt.apply(this,arguments)};
 const cf=confetti;confetti=function(){if(view==='seat')return;return cf.apply(this,arguments)};
 const lf=lvUpFx;lvUpFx=function(el,st){if(view==='seat'){add({kind:'info',text:st.name+' · Lv.'+lvOf(st.exp).lv},mgTop());return}return lf.apply(this,arguments)};
-const daily=wxDaily;wxDaily=function(){if(view!=='seat')return daily.apply(this,arguments);if(!advOn())return;const w=wxS(),key=w.day+'#'+w.dn;if(w.seen===key||wxSeenRO===key)return;if(roNow())wxSeenRO=key;else w.seen=key;add({kind:'info',text:WX[w.id].ic+' '+WX[w.id].n+' · '+WX[w.id].fx})};
+// wxDaily 已由主程式移除時跳過（避免 ReferenceError 令後面 hook 全死）
+if(typeof wxDaily==='function'){const daily=wxDaily;wxDaily=function(){if(view!=='seat')return daily.apply(this,arguments);if(!advOn())return;const w=wxS(),key=w.day+'#'+w.dn;if(w.seen===key||wxSeenRO===key)return;if(roNow())wxSeenRO=key;else w.seen=key;add({kind:'info',text:WX[w.id].ic+' '+WX[w.id].n+' · '+WX[w.id].fx})};}
 const rr=render;render=function(){const panel=document.getElementById('seatNoticePanel'),keep=panel&&panel.dataset.room===S.id&&view==='seat';const r=rr.apply(this,arguments);panel?.remove();paint();if(keep)details();return r};
 const rs=renderSeat;renderSeat=function(){const r=rs.apply(this,arguments);paint();return r};
 const un=undo;undo=function(){const rec=mgTop(),room=rec&&DB.rooms.find(r=>r.id===rec.rid),r=un.apply(this,arguments);if(r&&room){if(rec.seatNoticeIds)room.seatNotices=(room.seatNotices||[]).filter(n=>!rec.seatNoticeIds.includes(n.id));if(rec.seatResolved)(room.seatNotices||(room.seatNotices=[])).push(rec.seatResolved);save();paint()}return r};

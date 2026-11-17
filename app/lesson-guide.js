@@ -1,7 +1,7 @@
 /*! © 2026 getClassHero — 86 Studio. */
 (function () {
   'use strict';
-  let installed = false, panel, trigger, classTools, step = 0, active = false;
+  let installed = false, panel, trigger, classTools, emptyCta, step = 0, active = false;
   const simpleChoices = new Map(), managedSimpleScopes = new Set();
   const key = () => 'ch:first-lesson-guide:v1:' + (window.CH && window.CH.profile && window.CH.profile.user_id ? 'account:' + window.CH.profile.user_id : 'device');
   let journey = false, journeyKey = '', initialRooms = null, roomScope = '';
@@ -60,7 +60,17 @@
     if (window.CH_SEAT_CONTROLS && typeof window.CH_SEAT_CONTROLS.refit === 'function') window.CH_SEAT_CONTROLS.refit();
     else window.dispatchEvent(new Event('resize'));
   }
+  // 第 1 期：空班主 CTA（座位屏正中大掣），撳落開現有 quickClass()；有學生即收起
+  function syncEmptyCta() {
+    if (!emptyCta) return;
+    const seat = document.getElementById('v-seat');
+    if (seat && emptyCta.parentElement !== seat) seat.appendChild(emptyCta);
+    const show = emptyRoom();
+    emptyCta.hidden = !show;
+    if (show) emptyCta.textContent = t('📋 貼上學生名單，開始第一堂', '📋 Paste your class list to start');
+  }
   function syncClassTools() {
+    syncEmptyCta();
     if (!classTools) return;
     const room = currentRoom(), available = !!room && !demo(room), simple = available && simpleMode();
     if (document.body.classList.contains('ch-lesson-simple') !== !!simple) document.body.classList.toggle('ch-lesson-simple', !!simple);
@@ -228,6 +238,9 @@
     classTools.querySelector('[data-class-mode]').onclick = () => chooseSimple(!simpleMode());
     const header = document.querySelector('#app > header');
     if (header) header.after(classTools); else document.getElementById('app').prepend(classTools);
+    emptyCta = document.createElement('button'); emptyCta.id = 'chEmptyCta'; emptyCta.type = 'button'; emptyCta.hidden = true; emptyCta.setAttribute('data-notr', '');
+    emptyCta.onclick = () => { journey = true; journeyKey = key(); quickClass(); };
+    style.textContent += '#chEmptyCta{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:60;max-width:calc(100vw - 32px);padding:22px 36px;font:700 clamp(22px,2.6vw,34px)/1.3 system-ui,sans-serif;color:#26125e;background:#ffd23d;border:4px solid #26125e;border-radius:18px;box-shadow:0 6px 0 #26125e,0 10px 40px #0005;cursor:pointer}#chEmptyCta:hover{background:#ffdf66}#chEmptyCta:focus-visible{outline:4px solid #48e5ff;outline-offset:4px}#chEmptyCta[hidden]{display:none!important}@media print{#chEmptyCta{display:none!important}}';
     style.textContent += '#chClassTools{display:flex;gap:8px;flex-wrap:wrap;padding:8px 12px;background:#fff9df;border-bottom:1px solid #dbc99d}#chClassTools[hidden],#chClassTools button[hidden]{display:none!important}#chClassTools button{font:inherit;min-height:36px;padding:7px 12px;border:2px solid #493421;border-radius:10px;background:#fff;color:#332419;cursor:pointer}#chClassTools [data-class-quick]{background:#ffd34b;font-weight:700}#chClassTools [data-class-mode]{margin-left:auto}body.ch-lesson-simple #app>header nav>*:not([data-v=seat]):not([data-v=boss]),body.ch-lesson-simple #fcBar,body.ch-lesson-simple #advBan,body.ch-lesson-simple #atStrip,body.ch-lesson-simple #v-seat .seathint,body.ch-lesson-simple:not(.nwtools) #v-seat .seatbar,body.ch-lesson-simple #dock #hwReview,body.ch-lesson-simple #dock #rbBotX,body.ch-lesson-simple #dock .rchip,body.ch-lesson-simple #dock #minusBtn{display:none!important}body.ch-lesson-simple #dock{padding:8px}body.ch-lesson-simple #dock #pickCur,body.ch-lesson-simple #dock #undoBtn,body.ch-lesson-simple #chScoreSummary{display:revert}';
     style.textContent += 'body.ch-lesson-simple #app>header{padding:5px 8px;gap:5px;min-height:0}body.ch-lesson-simple #app>header nav{flex:0 0 auto;gap:4px}body.ch-lesson-simple #roomBtn{display:none!important}body.ch-lesson-simple #app>header button,body.ch-lesson-simple #roomSel{font-size:14px;line-height:1.2;min-height:34px;padding:5px 8px}body.ch-lesson-simple #chClassTools{display:flex;flex:0 0 auto;padding:0;border:0;background:transparent;gap:4px}body.ch-lesson-simple #chClassTools [data-class-mode]{margin-left:0}body.ch-lesson-simple #app main{padding:5px 8px!important}body.ch-lesson-simple #chSeatControls{display:inline-flex!important;vertical-align:middle;margin:3px 5px 3px 0;padding:0;gap:4px}body.ch-lesson-simple #chSeatControls button,body.ch-lesson-simple #seatNoticeSummary{font-size:13px;line-height:1.2;padding:5px 7px;min-height:32px}body.ch-lesson-simple #seatNoticeSummary{display:inline-flex!important;vertical-align:middle;margin:3px 0}body.ch-lesson-simple #v-seat>.board{font-size:14px;line-height:20px;min-height:0;height:auto;padding:3px 8px;margin:3px auto 5px}body.ch-lesson-simple #dock{display:flex!important;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 8px;padding:5px 8px;min-height:0}body.ch-lesson-simple #dock #pickCur{order:0}body.ch-lesson-simple #dock #undoBtn{order:1}body.ch-lesson-simple #dock #pickCur,body.ch-lesson-simple #dock #undoBtn{font-size:15px;line-height:1.2;min-height:36px;padding:6px 12px;margin:0}body.ch-lesson-simple #chScoreSummary{order:2;display:block!important;flex-basis:100%;padding:0 4px;font-size:12px;line-height:1.4;margin:0;text-align:center}body.ch-lesson-simple #dock>[hidden]{display:none!important}';
     document.body.append(trigger, panel); draw();
@@ -239,7 +252,9 @@
     }
     // This URL comes from the explicit "create my class" demo action.
     // Ordinary launches still show only an optional invitation.
-    if (new URLSearchParams(location.search).get('firstLesson') === '1' && eligible()) {
+    // 第 1 期：新帳戶（saas.js 冇舊資料可匯入 → CH_NEW_CLASS_FLOW）註冊後直接開建班／貼名單
+    const newFlow = window.CH_NEW_CLASS_FLOW === true; window.CH_NEW_CLASS_FLOW = false;
+    if ((newFlow || new URLSearchParams(location.search).get('firstLesson') === '1') && eligible()) {
       journey = true; journeyKey = key(); remember(); quickClass();
     }
     new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
