@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-Hant-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>ClassHero</title>
+<style>
+  body{margin:0;background:#f5f5f4;color:#1f2937;font:16px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang HK','Microsoft JhengHei',sans-serif}
+  main{max-width:520px;margin:48px auto;padding:0 16px}
+  .card{background:#fff;border-radius:14px;padding:24px 20px}
+  h1{font-size:20px;color:#b45309;margin:0 0 12px}
+  a{color:#b45309}
+  button{font:inherit;font-weight:700;background:#f59e0b;color:#1f2937;border:0;border-radius:10px;padding:12px 22px;cursor:pointer}
+  [hidden]{display:none}
+</style>
+</head>
+<body>
+<main><div class="card">
+  <h1>ClassHero</h1>
+  <p id="msg"></p>
+  <form id="f" method="post" hidden>
+    <input type="hidden" name="from" value="page">
+    <button type="submit" id="btn"></button>
+  </form>
+  <p><a id="app" href="https://getclasshero.com/app/"></a></p>
+</div></main>
+<script>
+(function(){
+  // 取消接收確認頁：GET 連結 → email-unsubscribe function 驗簽後 303 到呢度；撳掣先 POST 返去寫入
+  var FN = 'https://rkqtivbzdxgbcnzekkci.supabase.co/functions/v1/email-unsubscribe';
+  var q = new URLSearchParams(location.search), en = q.get('l') === 'en';
+  var T = en ? {
+    ask: 'Stop receiving ClassHero reminder emails?', btn: 'Unsubscribe',
+    done: 'You have been unsubscribed from ClassHero reminder emails. You can keep using ClassHero as usual.',
+    bad: 'This link is invalid or something went wrong. Please reply to the reminder email and we will remove you.',
+    app: 'Open ClassHero', url: 'https://getclasshero.com/app/?lang=en'
+  } : {
+    ask: '確定唔再收 ClassHero 提醒電郵？', btn: '取消接收',
+    done: '已取消接收 ClassHero 提醒電郵。你仍然可以照常使用 ClassHero。',
+    bad: '連結無效或暫時未能處理，請直接回覆提醒電郵通知我們。',
+    app: '打開 ClassHero', url: 'https://getclasshero.com/app/'
+  };
+  if (en) document.documentElement.lang = 'en';
+  var msg = document.getElementById('msg'), f = document.getElementById('f');
+  var u = q.get('u'), t = q.get('t'), done = q.get('done');
+  if (done === '1') msg.textContent = T.done;
+  else if (done === '0' || !u || !t) msg.textContent = T.bad;
+  else {
+    msg.textContent = T.ask;
+    f.action = FN + '?' + new URLSearchParams({ u: u, t: t, l: en ? 'en' : 'zh' }).toString();
+    document.getElementById('btn').textContent = T.btn;
+    f.hidden = false;
+  }
+  var a = document.getElementById('app'); a.textContent = T.app; a.href = T.url;
+})();
+</script>
+</body>
+</html>
