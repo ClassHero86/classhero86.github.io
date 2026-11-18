@@ -8,7 +8,7 @@
   'use strict';
   let installed = false;
   let refitFrame = 0, lastGrid = null, lastLayout = '';
-  const STYLE = "/* ===== 座位表「一頁睇晒」（body.fcC＝座位頁，任何闊度）：cw×ch 由 fitCompleteSeatGrid 按視窗計；變數 --ph 公仔高／--nf 名／--lf Lv·金幣 ===== */\nhtml body.narrow.fcC:has(#v-seat.on) main{padding:4px 2px 4px!important}\nhtml body.fcC #v-seat .board{font-size:11px;line-height:16px;padding:0 8px;border-width:2px;border-radius:6px;margin:3px auto 0;box-shadow:none;max-width:260px}\nhtml body.fcC #v-seat .editwarn{margin:0 0 4px;padding:3px 8px;font-size:12px}\nhtml body.fcC .seatwrap{scrollbar-gutter:auto;overflow:visible;transition:none}\nhtml body.fcC #seatNoticeSummary{padding:2px 10px;min-height:0;font-size:12px;margin:0 0 3px}\nhtml body.fcC .seat-preview-toggle,html body.fcC #chSeatControls{display:none!important}\nhtml body.fcC #sg.sfx{max-width:none;justify-content:center;align-content:start;grid-auto-rows:var(--ch,116px)}\nhtml body.fcC #sg.sfx .seat{min-height:0;padding:2px;border-width:2px;border-radius:8px;overflow:hidden;box-sizing:border-box;box-shadow:0 2px 0 #180b40;\n display:flex;flex-direction:column;align-items:stretch;justify-content:center}\nhtml body.fcC #sg.sfx .sav{flex:0 0 auto;height:var(--ph);display:flex;justify-content:center;align-items:flex-end;line-height:0}\nhtml body.fcC #sg.sfx .sav>img,html body.fcC #sg.sfx .sav>svg,html body.fcC #sg.sfx .sav .chb{height:var(--ph)!important;width:calc(var(--ph) * .7164)!important}\nhtml body.fcC #sg.sfx .snm{flex:0 0 auto;font-size:var(--nf);font-weight:900;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:clip;margin:0}\nhtml body.fcC #sg.sfx:not(.sf-rich) .snmen,html body.fcC #sg.sfx:not(.sf-rich) .slv .stars,html body.fcC #sg.sfx .sjob{display:none}\nhtml body.fcC #sg.sfx .snmen{flex:0 0 auto;font-size:var(--lf);line-height:1.1}\nhtml body.fcC #sg.sfx .slv{flex:0 0 auto;font-size:var(--lf);line-height:1.2;flex-wrap:nowrap;justify-content:center;gap:0 6px;overflow:hidden}\nhtml body.fcC #sg.sfx.sf-stack .slv{flex-direction:column;align-items:center;gap:0}\nhtml body.fcC #sg.sfx .slv .co{width:.95em;height:.95em;margin-right:2px}\nhtml body.fcC #sg.sfx .sbar{display:block;flex:0 0 3px;height:3px;margin:2px 4px 0;border:0;border-radius:2px}\nhtml body.fcC #sg.sfx.sf-lo .sbar{display:none}\nhtml body.fcC #sg.sfx .sinfo{width:calc(var(--lf) * 1.5);height:calc(var(--lf) * 1.5);line-height:calc(var(--lf) * 1.4);font-size:calc(var(--lf) * .9);left:0;top:0;border-width:1px;opacity:.85}\nhtml body.fcC #sg.sfx .sflag{font-size:calc(var(--lf) * .9);top:0;right:1px}\nhtml body.fcC #sg.sfx .adv-x2,html body.fcC #sg.sfx .adv-sh,html body.fcC #sg.sfx .adv-xp,html body.fcC #sg.sfx .adv-x1{font-size:9px;padding:0 2px;left:1px;bottom:5px;border-width:1px;border-radius:5px;line-height:1.2}\nhtml body.fcC #sg.sfx .adv-sh{left:auto;right:1px}body.fcC #sg .adv-xp{bottom:19px}body.fcC #sg .adv-x1{left:auto;right:1px;bottom:19px}\nhtml body.fcC #sg.sfx .seat.empty .splus{font-size:calc(var(--nf) * 1.3);line-height:1;margin:auto}\nhtml body.fcC #sg.sfx.sf-n2 .snm{white-space:normal;overflow-wrap:anywhere;word-break:break-all;line-height:1.1;height:calc(var(--nf) * 2.2);display:flex;align-items:center;justify-content:center;text-align:center}\nhtml body.fcC #sg.sfx.sf-badge .slv>span:first-child{position:absolute;left:2px;top:2px;z-index:2;font-size:var(--lf);line-height:1.1;padding:0 3px;border-radius:5px;background:#180b40e6;color:var(--gold)}\nhtml body.fcC #sg.sfx.sf-badge .sinfo{display:none}\nhtml body.fcC #sg.sfx.sf-badge .sflag{top:1px}\n/* 橫身格（闊 > 1.3×高）：公仔喺左、字喺右 */\nhtml body.fcC #sg.sfx.sf-row .sav{position:absolute;left:3px;top:50%;transform:translateY(-50%)}\nhtml body.fcC #sg.sfx.sf-row .snm,html body.fcC #sg.sfx.sf-row .snmen,html body.fcC #sg.sfx.sf-row .slv{margin-left:calc(var(--ph) * .7164 + 8px)}\nhtml body.fcC #sg.sfx.sf-row .snm{margin-right:calc(var(--lf) * 1.5 + 2px)}\nhtml body.fcC #sg.sfx.sf-row .sbar{margin-left:calc(var(--ph) * .7164 + 12px)}\nhtml body.fcC #sg.sfx.sf-row .sinfo{left:auto;right:0}\nhtml body.fcC #sg.sfx.sf-row .sflag{right:calc(var(--lf) * 1.6)}\nhtml body.fcC #sg.sfx .slv{font-size:var(--lf)!important}\nhtml body.dockmin #dock #chScoreSummary{display:none!important}\nbody.ch-seat-measuring #sg,body.ch-seat-measuring #sg *{transition:none!important}\n";
+  const STYLE = "/* ===== 座位表「一頁睇晒」（body.fcC＝座位頁，任何闊度）：cw×ch 由 fitCompleteSeatGrid 按視窗計；變數 --ph 公仔高／--nf 名／--lf Lv·金幣 ===== */\nhtml body.narrow.fcC:has(#v-seat.on) main{padding:4px 2px 4px!important}\nhtml body.fcC #v-seat .board{font-size:11px;line-height:16px;padding:0 8px;border-width:2px;border-radius:6px;margin:3px auto 0;box-shadow:none;max-width:260px}\nhtml body.fcC #v-seat .editwarn{margin:0 0 4px;padding:3px 8px;font-size:12px}\nhtml body.fcC .seatwrap{scrollbar-gutter:auto;overflow:visible;transition:none}\nhtml body.fcC #seatNoticeSummary{padding:2px 10px;min-height:0;font-size:12px;margin:0 0 3px}\nhtml body.fcC .seat-preview-toggle,html body.fcC #chSeatControls{display:none!important}\nhtml body.fcC #sg.sfx{max-width:none;justify-content:center;align-content:start;grid-auto-rows:var(--ch,116px)}\nhtml body.fcC #sg.sfx .seat{min-height:0;padding:2px;border-width:2px;border-radius:8px;overflow:hidden;box-sizing:border-box;box-shadow:0 2px 0 #180b40;\n display:flex;flex-direction:column;align-items:stretch;justify-content:center}\nhtml body.fcC #sg.sfx .sav{flex:0 0 auto;height:var(--ph);display:flex;justify-content:center;align-items:flex-end;line-height:0}\nhtml body.fcC #sg.sfx .sav>img,html body.fcC #sg.sfx .sav>svg,html body.fcC #sg.sfx .sav .chb{height:var(--ph)!important;width:calc(var(--ph) * .7164)!important}\nhtml body.fcC #sg.sfx .snm{flex:0 0 auto;font-size:var(--nf);font-weight:900;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:clip;margin:0}\nhtml body.fcC #sg.sfx:not(.sf-rich) .snmen,html body.fcC #sg.sfx:not(.sf-rich) .slv .stars,html body.fcC #sg.sfx .sjob{display:none}\nhtml body.fcC #sg.sfx .snmen{flex:0 0 auto;font-size:var(--lf);line-height:1.1}\nhtml body.fcC #sg.sfx .slv{flex:0 0 auto;font-size:var(--lf);line-height:1.2;flex-wrap:nowrap;justify-content:center;gap:0 6px;overflow:hidden}\nhtml body.fcC #sg.sfx.sf-stack .slv{flex-direction:column;align-items:center;gap:0}\nhtml body.fcC #sg.sfx .slv .co{width:.95em;height:.95em;margin-right:2px}\nhtml body.fcC #sg.sfx .sbar{display:block;flex:0 0 3px;height:3px;margin:2px 4px 0;border:0;border-radius:2px}\nhtml body.fcC #sg.sfx.sf-lo .sbar{display:none}\nhtml body.fcC #sg.sfx .sinfo{width:calc(var(--lf) * 1.5);height:calc(var(--lf) * 1.5);line-height:calc(var(--lf) * 1.4);font-size:calc(var(--lf) * .9);left:0;top:0;border-width:1px;opacity:.85}\nhtml body.fcC #sg.sfx .sflag{font-size:calc(var(--lf) * .9);top:0;right:1px}\nhtml body.fcC #sg.sfx .adv-x2,html body.fcC #sg.sfx .adv-sh,html body.fcC #sg.sfx .adv-xp,html body.fcC #sg.sfx .adv-x1{font-size:9px;padding:0 2px;left:1px;bottom:5px;border-width:1px;border-radius:5px;line-height:1.2}\nhtml body.fcC #sg.sfx .adv-sh{left:auto;right:1px}body.fcC #sg .adv-xp{bottom:19px}body.fcC #sg .adv-x1{left:auto;right:1px;bottom:19px}\nhtml body.fcC #sg.sfx .seat.empty .splus{font-size:calc(var(--nf) * 1.3);line-height:1;margin:auto}\nhtml body.fcC #sg.sfx.sf-n2 .snm{white-space:normal;overflow-wrap:anywhere;word-break:break-all;line-height:1.1;height:calc(var(--nf) * 2.2);display:flex;align-items:center;justify-content:center;text-align:center}\nhtml body.fcC #sg.sfx.sf-badge .slv>span:first-child{position:absolute;left:2px;top:2px;z-index:2;font-size:var(--lf);line-height:1.1;padding:0 3px;border-radius:5px;background:#180b40e6;color:var(--gold)}\nhtml body.fcC #sg.sfx.sf-badge .sinfo{display:none}\nhtml body.fcC #sg.sfx.sf-badge .sflag{top:1px}\n/* 橫身格（闊 > 1.3×高）：公仔喺左、字喺右 */\nhtml body.fcC #sg.sfx.sf-row .sav{position:absolute;left:3px;top:50%;transform:translateY(-50%)}\nhtml body.fcC #sg.sfx.sf-row .snm,html body.fcC #sg.sfx.sf-row .snmen,html body.fcC #sg.sfx.sf-row .slv{margin-left:calc(var(--ph) * .7164 + 8px)}\nhtml body.fcC #sg.sfx.sf-row .snm{margin-right:calc(var(--lf) * 1.5 + 2px)}\nhtml body.fcC #sg.sfx.sf-row .sbar{margin-left:calc(var(--ph) * .7164 + 12px)}\nhtml body.fcC #sg.sfx.sf-row .sinfo{left:auto;right:0}\nhtml body.fcC #sg.sfx.sf-row .sflag{right:calc(var(--lf) * 1.6)}\nhtml body.fcC #v-seat .board{max-width:min(260px,calc(100vw - 230px))}\n#chAwardTab{position:fixed;left:6px;bottom:6px;z-index:44;display:none;align-items:center;justify-content:center;gap:4px;min-height:34px;padding:3px 11px;box-sizing:border-box;border-radius:12px;font:inherit;font-size:14px;font-weight:900;line-height:1.1;white-space:nowrap;cursor:pointer;background:#ffcf3d;color:#2a1d12;border:3px solid #1d0d4d;box-shadow:0 3px 0 #1d0d4d}\n#chAwardTab:active{transform:translateY(2px);box-shadow:0 1px 0 #1d0d4d}\n#chAwardTab:focus-visible{outline:3px solid #21b6d7;outline-offset:2px}\nbody.chTabOn #chAwardTab{display:flex}\nbody.chTabOpen #chAwardTab{z-index:60;background:#fff}\nbody.chDockPop #dock{display:flex!important;flex-wrap:wrap;position:fixed!important;left:0;right:0;top:auto!important;bottom:0;z-index:45;max-height:70vh;overflow-y:auto;overflow-x:hidden;padding:12px 12px 14px!important;box-sizing:border-box;border-radius:20px 20px 0 0;transform:none!important;pointer-events:auto!important}\nbody.chDockPop #dock .rchip{display:inline-block!important}\nbody.chDockPop #dock #chScoreSummary{display:block!important}\nhtml body.fcC #sg.sfx .slv{font-size:var(--lf)!important}\nhtml body.dockmin #dock #chScoreSummary{display:none!important}\nbody.ch-seat-measuring #sg,body.ch-seat-measuring #sg *{transition:none!important}\n";
   /* ---- 一頁睇晒版面：cw×ch 格由視窗實際剩餘空間計，格內公仔／名／Lv／金幣填滿格 ---- */
   function fitSeats(sg) {
     const wrap = sg.parentElement, g = S.grid || { c: 6, r: 5 };
@@ -38,7 +38,7 @@
     const GAP = (W / C < 80 || (bottom - top) / R < 80) ? 3 : 6;
     const H = bottom - top - below;
     let cw = Math.floor((W - GAP * (C - 1)) / C), ch = Math.floor((H - GAP * (R - 1)) / R);
-    cw = Math.max(34, Math.min(cw, 320)); ch = Math.max(40, Math.min(ch, 240));
+    cw = Math.max(34, Math.min(cw, 320)); ch = Math.max(30, Math.min(ch, 240));
     const row = cw / ch > 1.3, pad = 4, AR = .7164;
     const plan = (nl, badge) => {
       let nf, lf, ph; const stack = cw < 104 || row;
@@ -83,6 +83,52 @@
     }
   }
 
+
+  /* ---- 加分入口保險：派獎列被收埋／窄屏隱藏／縮到睇唔到時，右下角永遠有「⭐ 加分」掣，以浮層（唔推高座位）開關派獎列 ---- */
+  const en = () => document.documentElement.classList.contains('i18n-en');
+  const isOpen = () => document.body.classList.contains('nwsheet') || document.body.classList.contains('chDockPop');
+  function dockReachable() {
+    const dk = document.getElementById('dock');
+    if (!dk) return false;
+    const cs = getComputedStyle(dk); if (cs.display === 'none' || cs.visibility === 'hidden') return false;
+    const r = dk.getBoundingClientRect();
+    return r.height > 8 && r.width > 8 && r.top < innerHeight - 8 && r.bottom > 8;
+  }
+  function setOpen(on) {
+    const B = document.body;
+    if (B.classList.contains('narrow') && typeof nwSheet === 'function') { nwSheet(on); B.classList.remove('chDockPop'); }
+    else B.classList.toggle('chDockPop', on);
+    tabSync();
+  }
+  function tabSync() {
+    const B = document.body;
+    let t = document.getElementById('chAwardTab');
+    if (!t) {
+      t = document.createElement('button'); t.type = 'button'; t.id = 'chAwardTab';
+      t.addEventListener('click', e => { e.stopPropagation(); setOpen(!isOpen()); });
+      document.body.appendChild(t);
+    }
+    const open = isOpen();
+    const need = B.classList.contains('nwhasdock') && !B.classList.contains('inhall') && !B.classList.contains('rdView') && (open || !dockReachable());
+    B.classList.toggle('chTabOn', !!need); B.classList.toggle('chTabOpen', open);
+    const label = open ? (en() ? '▼ Close' : '▼ 收埋') : (en() ? '⭐ Award ▲' : '⭐ 加分 ▲');
+    if (t.textContent !== label) t.textContent = label;
+    t.setAttribute('aria-expanded', String(open));
+    t.title = en() ? 'Show / hide the award bar' : '展開／收埋加分列';
+    if (open) { const dk = document.getElementById('dock'); if (dk) { const top = dk.getBoundingClientRect().top; t.style.bottom = Math.max(6, innerHeight - top + 6) + 'px'; } }
+    else t.style.bottom = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && document.body.classList.contains('chDockPop')) setOpen(false); });
+  document.addEventListener('pointerdown', e => {
+    if (!document.body.classList.contains('chDockPop')) return;
+    const t = e.target; if (t && t.closest && (t.closest('#dock') || t.closest('#chAwardTab') || t.closest('#modal'))) return;
+    setOpen(false);
+  }, true);
+  document.addEventListener('click', e => {
+    if (!document.body.classList.contains('chDockPop')) return;
+    const b = e.target && e.target.closest && e.target.closest('#dock .rchip,#dock #pickCur');
+    if (b) setTimeout(() => setOpen(false), 0);
+  }, true);
   function layoutSignature(sg) {
     const wrap = sg.parentElement, rect = sg.getBoundingClientRect();
     const dock = document.getElementById('dock'), dr = dock && dock.getBoundingClientRect();
@@ -122,6 +168,7 @@
     if (typeof S !== 'undefined' && S) { if (S.seatSz) S.seatSz = 0; if (S.seatOnePage === false) S.seatOnePage = true; }
     try { if (typeof DB !== 'undefined' && DB && DB.narrowSeat && DB.narrowSeat !== 'fit') { DB.narrowSeat = 'fit'; if (typeof applyNarrow === 'function') applyNarrow(); } } catch (e) {}
     observe();
+    tabSync();
   }
   function install() {
     if (installed) return true;
@@ -156,10 +203,11 @@
     }
     const original = renderSeat;
     renderSeat = function () { const result = original.apply(this, arguments); sync(); lastGrid = null; seatZoom(true); refit(); return result; };
-    addEventListener('resize', () => { try { applyDock(); if (typeof syncPad === 'function') syncPad(); } catch (e) {} sync(); lastGrid = null; if (document.getElementById('sg')) seatZoom(true); });
+    addEventListener('resize', () => { try { tabSync(); applyDock(); if (typeof syncPad === 'function') syncPad(); } catch (e) {} sync(); lastGrid = null; if (document.getElementById('sg')) seatZoom(true); });
     if (window.visualViewport) window.visualViewport.addEventListener('resize', refit);
     sync();
     refit();
+    setInterval(tabSync, 600);
     return true;
   }
   window.CH_SEAT_CONTROLS = { install, sync, refit };
